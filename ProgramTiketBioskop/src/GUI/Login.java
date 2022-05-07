@@ -50,9 +50,9 @@ public class Login extends JFrame {
         // -- FONT USERNAME
         userLabelLogin = new JLabel("Username");
         userLabelLogin.setBounds(15,20,80,25);
-        panel.add(userLabelLogin);
         // userLabelLogin.setFont(mainFont); TIDAK JADI DIPAKAI TAPI TETAP DITARUH SINI BIAR INGET SIAPA TAU BESOK KEPAKAI
         userLabelLogin.setForeground(Color.black);
+        panel.add(userLabelLogin);
 
         // -- TEXT FIELD INPUT USERNAME
         userTextLogin = new JTextField(20);
@@ -62,9 +62,9 @@ public class Login extends JFrame {
         // -- FONT PASSWORD
         passwordLabelLogin = new JLabel("Password");
         passwordLabelLogin.setBounds(15,60,80,25);
-        panel.add(passwordLabelLogin);
         // passwordLabelLogin.setFont(mainFont);
         passwordLabelLogin.setForeground(Color.black);
+        panel.add(passwordLabelLogin);
 
         // -- TEXT FIELD INPUT PASSWORD
         passwordTextLogin = new JPasswordField();
@@ -112,12 +112,15 @@ public class Login extends JFrame {
 
                     // -- JIKA BERHASIL LOGIN SEBAGAI ADMIN
                     if (berhasilLoginAdmin.equals(true)) {
-                        JOptionPane.showMessageDialog(frame, "Login Admin Berhasil!");
+                        HomeAdmin admin = new HomeAdmin();
+                        admin.initialize();
                     }
 
                     // -- JIKA BERHASIL LOGIN SEBAGAI USER 
                     if (berhasilLogin.equals(true)) {
-                        JOptionPane.showMessageDialog(frame, "Login Berhasil!");
+                        // JOptionPane.showMessageDialog(frame, "Login Berhasil!");
+                        HomeUser user = new HomeUser();
+                        user.initialize();
                     } 
                     
                     // -- JIKA TIDAK BERHASIL LOGIN
@@ -184,6 +187,6 @@ public class Login extends JFrame {
         panel.add(goToRegisterButton);
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
-        frame.setVisible(true);
+        frame.setVisible(true); // -- MEMUNCULKAN WINDOW
     }
 }
