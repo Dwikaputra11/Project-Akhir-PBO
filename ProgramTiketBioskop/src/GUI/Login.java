@@ -114,6 +114,7 @@ public class Login extends JFrame {
                     if (berhasilLoginAdmin.equals(true)) {
                         HomeAdmin admin = new HomeAdmin();
                         admin.initialize();
+                        frame.dispose();
                     }
 
                     // -- JIKA BERHASIL LOGIN SEBAGAI USER 
@@ -121,6 +122,7 @@ public class Login extends JFrame {
                         // JOptionPane.showMessageDialog(frame, "Login Berhasil!");
                         HomeUser user = new HomeUser();
                         user.initialize();
+                        frame.dispose();
                     } 
                     
                     // -- JIKA TIDAK BERHASIL LOGIN
