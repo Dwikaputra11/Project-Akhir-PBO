@@ -50,7 +50,6 @@ public class Login extends JFrame {
         // -- FONT USERNAME
         userLabelLogin = new JLabel("Username");
         userLabelLogin.setBounds(15,20,80,25);
-        // userLabelLogin.setFont(mainFont); TIDAK JADI DIPAKAI TAPI TETAP DITARUH SINI BIAR INGET SIAPA TAU BESOK KEPAKAI
         userLabelLogin.setForeground(Color.black);
         panel.add(userLabelLogin);
 
@@ -62,7 +61,6 @@ public class Login extends JFrame {
         // -- FONT PASSWORD
         passwordLabelLogin = new JLabel("Password");
         passwordLabelLogin.setBounds(15,60,80,25);
-        // passwordLabelLogin.setFont(mainFont);
         passwordLabelLogin.setForeground(Color.black);
         panel.add(passwordLabelLogin);
 
