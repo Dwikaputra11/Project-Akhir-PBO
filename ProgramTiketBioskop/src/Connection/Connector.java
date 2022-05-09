@@ -10,7 +10,7 @@ public class Connector {
     public Connector() {
         try {
             // Class.forName("com.mysql.jdbc.cj.driver");
-            koneksi = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/projectpbo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            koneksi = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/bioskop_pbo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             statement = (Statement)koneksi.createStatement();
         } catch(Exception exception) {
             System.out.println(exception.getMessage());
