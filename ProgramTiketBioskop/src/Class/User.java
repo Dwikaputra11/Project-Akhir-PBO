@@ -14,6 +14,8 @@ public class User {
         this.order = order;
     }
 
+    public User(){}
+
 
     public String getUsername() {
         return this.username;

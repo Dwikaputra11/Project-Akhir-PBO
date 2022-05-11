@@ -1,9 +1,10 @@
 package GUI;
 
-import Connection.Connector;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
+
+import Connection.Connector;
+
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.awt.*;
