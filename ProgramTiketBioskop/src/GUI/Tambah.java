@@ -18,6 +18,7 @@ public class Tambah extends JFrame {
     private static JTextField textFieldKode;
     private static JLabel labelSinopsis;
     private static JTextField textFieldSinopsis;
+    private static JButton buttonSubmit;
 
     // -- DEKLARASI LABEL DAN DROP FIELD IMAGE
     private static JLabel labelGambar;
@@ -90,6 +91,13 @@ public class Tambah extends JFrame {
         labelGambar.setFont(secondaryFont);
         labelGambar.setForeground(Color.black);
         panel.add(labelGambar);
+
+        // -- BUTTON SUBMIT
+        buttonSubmit = new JButton("Submit");
+        buttonSubmit.setBounds(390, 550, 80, 25);
+        buttonSubmit.setForeground(Color.black);
+        panel.add(buttonSubmit);
+
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
