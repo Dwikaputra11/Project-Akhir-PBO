@@ -24,7 +24,7 @@ public class UserDao {
         return null;
     }
 
-    public boolean addFilm(User user){
+    void addUser(User user){
         String query = "insert into users value (?,?,?,?)";
         PreparedStatement pstm;
         try {
@@ -33,13 +33,11 @@ public class UserDao {
             pstm.setString(2, user.getPassword());
             // pstm.set(3, user.getOrder());
             pstm.executeUpdate();
-            return true; 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return false;
     }
-    public boolean deleteFilm(String username){
+    public boolean deleteUser(String username){
         String query = "delete from users where username="+username;
         PreparedStatement pstm;
         try{
