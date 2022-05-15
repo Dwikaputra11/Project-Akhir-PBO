@@ -2,13 +2,13 @@ package GUI;
 
 import Connection.Connector;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 

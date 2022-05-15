@@ -3,15 +3,10 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
-// import javax.swing.event.MouseInputAdapter;
-// import org.w3c.dom.events.MouseEvent;
 import Dragger.DragListener;
 import java.awt.dnd.DropTarget;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-// import java.awt.font.TextAttribute;
-// import java.util.HashMap;
-// import java.util.Map;
 
 public class Tambah extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -164,6 +159,5 @@ public class Tambah extends JFrame {
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
-
     }
 }
