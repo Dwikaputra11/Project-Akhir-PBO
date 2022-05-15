@@ -1,7 +1,15 @@
 package GUI;
 
 import javax.swing.*;
+
+import Class.Film;
+import Connection.FilmDao;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Random;
 
 public class Tambah extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -15,10 +23,11 @@ public class Tambah extends JFrame {
     private static JLabel labelNama;
     private static JTextField textFieldNama;
     private static JLabel labelKode;
-    private static JTextField textFieldKode;
+    private static JLabel textKode;
     private static JLabel labelSinopsis;
     private static JTextField textFieldSinopsis;
     private static JButton buttonSubmit;
+    private static JButton buttonAttach;
 
     // -- DEKLARASI LABEL DAN DROP FIELD IMAGE
     private static JLabel labelGambar;
@@ -26,6 +35,9 @@ public class Tambah extends JFrame {
     // -- DEKLARASI FONT YANG DIGUNAKAN
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
     final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18); 
+
+    private Film film;
+    private FilmDao filmDao = new FilmDao();
 
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
@@ -69,9 +81,11 @@ public class Tambah extends JFrame {
         panel.add(labelKode);
 
         // -- TEXTFIELD KODE FILM
-        textFieldKode = new JTextField(50);
-        textFieldKode.setBounds(200, 125, 290, 25);
-        panel.add(textFieldKode);
+        textKode = new JLabel(generateString());
+        textKode.setBounds(200, 125, 290, 25);
+        textKode.setFont(secondaryFont);
+        textKode.setForeground(Color.black);
+        panel.add(textKode);
 
         // -- LABEL SINOPSIS
         labelSinopsis = new JLabel("Sinopsis Film ");
@@ -96,11 +110,62 @@ public class Tambah extends JFrame {
         buttonSubmit = new JButton("Submit");
         buttonSubmit.setBounds(390, 550, 80, 25);
         buttonSubmit.setForeground(Color.black);
+        buttonSubmit.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = textFieldNama.getText();
+                String code = textKode.getText();
+                String synopsis = textFieldSinopsis.getText();
+                try{
+                    if(!filmDao.isFilmAdded(code)){
+                        film = new Film(code,name,synopsis);
+                        filmDao.addFilm(film);
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Film sudah terdafatar!", "Alert", HEIGHT);
+                    }
+                }catch(Exception exception){
+                    System.err.println(exception.getMessage());
+                }
+            }
+        });
         panel.add(buttonSubmit);
 
+        // -- BUTTON ATTACH
+        buttonAttach = new JButton();
+        buttonAttach.setBounds(200, 380, 80, 25);
+        buttonAttach.setForeground(Color.black);
+        buttonAttach.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.showOpenDialog(null);
+                File f = chooser.getSelectedFile();
+                String filename = f.getAbsolutePath();
+                
+                
+            }
+
+        });
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
+        
+    }
 
+    public String generateString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 5;
+        Random random = new Random();
+    
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+          .limit(targetStringLength)
+          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+          .toString();
+    
+        return generatedString;
     }
 }

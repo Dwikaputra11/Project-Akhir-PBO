@@ -10,7 +10,7 @@ public class UserDao {
     public User getUser(String username, String pass){
         System.out.println("GetUser()");
         try{
-            String query = "select * from movies";
+            String query = "select * from users";
             User user = new User();
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);
             con.statement = con.koneksi.createStatement();
@@ -19,6 +19,7 @@ public class UserDao {
                 if(rs.getString("username").equals(username) && rs.getString("password").equals(pass)){
                     user.setUsername(username);
                     user.setPassword(pass);
+                    System.out.println(user);
                     return user;
                 }
             }
