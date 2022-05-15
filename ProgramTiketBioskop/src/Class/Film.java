@@ -1,16 +1,17 @@
 package Class;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Film{
     private String name;
     private String synopsis;
     private int code;
-    private Date date;
+    private String date;
     private String imageUrl;
 
 
-    public Film(String name, String synopsis, int code, Date date, String imageUrl) {
+    public Film(int code,String name, String synopsis, String date, String imageUrl) {
         this.name = name;
         this.synopsis = synopsis;
         this.code = code;
@@ -46,11 +47,11 @@ public class Film{
         this.code = code;
     }
     
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
     
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     
@@ -70,7 +71,13 @@ public class Film{
             ", code='" + getCode() + "'" +
             "}";
     }
-    
-
-    
+  
+    public ArrayList<Film> filmList = new ArrayList<Film>(
+        Arrays.asList(
+            new Film(001,"Doctor Strange","Bla bla bla", "12 April 2021","img/20220"),
+            new Film(002,"KKN Penari","Bla bla bla", "13 April 2021","img/20220"),
+            new Film(003,"Doctor Strange","Bla bla bla", "14 April 2021","img/20220"),
+            new Film(004,"Doctor Strange","Bla bla bla", "15 April 2021","img/20220")
+        )
+    );
 }
