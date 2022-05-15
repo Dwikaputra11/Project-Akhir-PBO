@@ -2,6 +2,9 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.*;
+import Dragger.DragListener;
+import java.awt.dnd.DropTarget;
 
 public class Tambah extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -21,16 +24,26 @@ public class Tambah extends JFrame {
     private static JButton buttonSubmit;
 
     // -- DEKLARASI LABEL DAN DROP FIELD IMAGE
-    private static JLabel labelGambar;
+    private static JLabel labelTextGambar;
+    private static JLabel labelPenampilGambar;
+    private static JLabel labelTextPath;
+    private static JLabel labelPenampilPath;
 
     // -- DEKLARASI FONT YANG DIGUNAKAN
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
-    final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18); 
+    final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18);
+    final private static Font fontKetiga = new Font("TimesRoman", Font.BOLD, 16);
 
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
+
+        // -- INSTANSIASI BORDER JLABEL
+        Border border = BorderFactory.createLineBorder(Color.gray,1);
+        DragListener dragListener = new DragListener(labelPenampilGambar,labelPenampilPath);
+
+        new DropTarget(frame,dragListener);
         
         // -- SET SIZE & TITLE FRAME
         frame.setSize(750, 650);
@@ -85,19 +98,42 @@ public class Tambah extends JFrame {
         textFieldSinopsis.setBounds(200, 165, 480, 205);
         panel.add(textFieldSinopsis);
 
-        // -- LABEL GAMBAR
-        labelGambar = new JLabel("Poster Film ");
-        labelGambar.setBounds(50,380,170,30);
-        labelGambar.setFont(secondaryFont);
-        labelGambar.setForeground(Color.black);
-        panel.add(labelGambar);
+        // -- LABEL TEXT GAMBAR
+        labelTextGambar = new JLabel("Poster Film ");
+        labelTextGambar.setBounds(50,380,170,30);
+        labelTextGambar.setFont(secondaryFont);
+        labelTextGambar.setForeground(Color.black);
+        panel.add(labelTextGambar);
+
+        // -- LABEL TEXT PATH
+        labelTextPath = new JLabel("Path File : ");
+        labelTextPath.setBounds(390,430,170,30);
+        labelTextPath.setFont(secondaryFont);
+        labelTextPath.setForeground(Color.black);
+        panel.add(labelTextPath);
+        
+        // -- LABEL PENAMPIL GAMBAR
+        labelPenampilGambar = new JLabel();
+        labelPenampilGambar.setBounds(200,380,180,150);
+        labelPenampilGambar.setFont(secondaryFont);
+        labelPenampilGambar.setForeground(Color.black);
+        labelPenampilGambar.setBorder(border);
+        panel.add(labelPenampilGambar);
+
+        // -- LABEL TEXT PATH ADDRESS
+        labelPenampilPath = new JLabel("");
+        labelPenampilPath.setBounds(490,435,190,25);
+        labelPenampilPath.setFont(secondaryFont);
+        labelPenampilPath.setForeground(Color.black);
+        labelPenampilPath.setBorder(border);
+        panel.add(labelPenampilPath);
 
         // -- BUTTON SUBMIT
         buttonSubmit = new JButton("Submit");
-        buttonSubmit.setBounds(390, 550, 80, 25);
+        buttonSubmit.setBounds(390, 550, 85, 25);
+        buttonSubmit.setFont(fontKetiga);
         buttonSubmit.setForeground(Color.black);
         panel.add(buttonSubmit);
-
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
