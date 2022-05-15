@@ -20,6 +20,8 @@ public class FilmDao {
                     film.setCode(code);
                     film.setName(rs.getString("nama"));
                     film.setSynopsis(rs.getString("sinopsis"));
+                    film.setImageUrl(rs.getString("tanggal"));
+                    film.setDate(rs.getString("tanggal"));
                 }
             }
         }catch(Exception e){
@@ -44,14 +46,16 @@ public class FilmDao {
     } 
     public void addFilm(Film film){
         System.out.println("addFilm()");
-        String query = "insert into users(kode,nama,sinopsis) values (?,?,?)";
+        String query = "insert into movies(kode,nama,sinopsis,tanggal,gambar) values (?,?,?,?,?)";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
-            pstm.setString(0, film.getCode());
-            pstm.setString(1, film.getName());
-            pstm.setString(2, film.getSynopsis());
+            pstm.setString(1, film.getCode());
+            pstm.setString(2, film.getName());
+            pstm.setString(3, film.getSynopsis());
+            pstm.setString(4, film.getDate());
+            pstm.setString(5, film.getImageUrl());
             pstm.executeUpdate();
         } catch (Exception e) {
             System.err.println(e.getMessage());

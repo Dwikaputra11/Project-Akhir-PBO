@@ -23,10 +23,11 @@ public class Film{
     public Film() {
     }
 
-    public Film(String code, String name, String synopsis){
+    public Film(String code, String name, String synopsis, String imageUrl){
         this.code = code;
         this.name = name;
         this.synopsis = synopsis;
+        this.imageUrl = imageUrl;
     }
     
     public String getName() {
@@ -77,13 +78,13 @@ public class Film{
             ", code='" + getCode() + "'" +
             "}";
     }
-  
-    public ArrayList<Film> filmList = new ArrayList<Film>(
-        Arrays.asList(
-            new Film("","Doctor Strange","Bla bla bla", "12 April 2021","img/20220"),
-            new Film("","KKN Penari","Bla bla bla", "13 April 2021","img/20220"),
-            new Film("","Doctor Strange","Bla bla bla", "14 April 2021","img/20220"),
-            new Film("","Doctor Strange","Bla bla bla", "15 April 2021","img/20220")
-        )
-    );
+//   public ArrayList<Film> filmList = new ArrayList<Film>(
+    //     Arrays.asList(
+    //         new Film("","Doctor Strange","Bla bla bla", "12 April 2021","img/20220"),
+    //         new Film("","KKN Penari","Bla bla bla", "13 April 2021","img/20220"),
+    //         new Film("","Doctor Strange","Bla bla bla", "14 April 2021","img/20220"),
+    //         new Film("","Doctor Strange","Bla bla bla", "15 April 2021","img/20220")
+    //     )
+    // );
+    // 
 }
