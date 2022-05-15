@@ -3,8 +3,15 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+// import javax.swing.event.MouseInputAdapter;
+// import org.w3c.dom.events.MouseEvent;
 import Dragger.DragListener;
 import java.awt.dnd.DropTarget;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+// import java.awt.font.TextAttribute;
+// import java.util.HashMap;
+// import java.util.Map;
 
 public class Tambah extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -28,6 +35,9 @@ public class Tambah extends JFrame {
     private static JLabel labelPenampilGambar;
     private static JLabel labelTextPath;
     private static JLabel labelPenampilPath;
+
+    //-- BUTTON KEMBALI
+    private static JButton backButton;
 
     // -- DEKLARASI FONT YANG DIGUNAKAN
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
@@ -127,6 +137,23 @@ public class Tambah extends JFrame {
         labelPenampilPath.setForeground(Color.black);
         labelPenampilPath.setBorder(border);
         panel.add(labelPenampilPath);
+
+        // -- JLABEL TOMBOL KEMBALI
+        backButton = new JButton("kembali");
+        backButton.setBounds(10,10,80,25);
+        backButton.setForeground(Color.black);
+        backButton.addActionListener((ActionListener) new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    HomeAdmin home = new HomeAdmin();
+                    home.initialize();
+                    frame.dispose();
+                } catch (Exception error) {
+                    System.out.println(error.getMessage());
+                }   
+            }});
+        panel.add(backButton);
 
         // -- BUTTON SUBMIT
         buttonSubmit = new JButton("Submit");
