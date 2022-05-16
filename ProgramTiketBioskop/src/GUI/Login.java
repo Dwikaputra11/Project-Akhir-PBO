@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
@@ -9,9 +11,6 @@ import Connection.UserDao;
 
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
-import java.awt.*;
-import java.awt.event.*;
-// import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +29,8 @@ public class Login extends JFrame {
     // -- DEKLARASI NAVIGASI ANTARA TOMBOL REGISTER DAN LOGIN
     private static JLabel gotoRegisterLabel;
     private static JLabel goToRegisterButton;
+
+    // -- KONEKSI DATABASE MELALUI DAO
     private User user;
     private UserDao userDao = new UserDao();
 

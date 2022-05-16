@@ -59,6 +59,7 @@ public class HomeAdmin extends JFrame {
                try {
                    Tambah tambah = new Tambah();
                    tambah.initialize();
+                   frame.dispose();
                } catch (Exception e) {
                    System.out.println(e.getMessage());
                }
@@ -102,6 +103,7 @@ public class HomeAdmin extends JFrame {
                 try {
                     Lihat edit = new Lihat();
                     edit.initialize();
+                    frame.dispose();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -145,6 +147,7 @@ public class HomeAdmin extends JFrame {
                try {
                    Pemesanan hapus = new Pemesanan();
                    hapus.initialize();
+                   frame.dispose();
                } catch (Exception e) {
                    System.out.println(e.getMessage());
                }

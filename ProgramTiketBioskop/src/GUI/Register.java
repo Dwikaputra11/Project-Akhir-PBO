@@ -33,8 +33,6 @@ public class Register {
     private static User user;
     private UserDao userDao = new UserDao();
 
-    // final private static Font mainFont = new Font("Roboto", Font.BOLD, 13); FONT GAJADI DIPAKAI WKWK
-
     public void initialize() {
 
         // -- INSTANSIASI PANEL & FRAME
