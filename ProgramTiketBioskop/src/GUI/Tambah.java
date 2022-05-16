@@ -132,16 +132,20 @@ public class Tambah extends JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
                 String date = sdf.format(pilihTanggal.getDate().getTime());
                 System.out.println(date);
-                try{
-                    if(!filmDao.isFilmAdded(code)){
-                        film = new Film(code,name,synopsis,imageUrl,date);
-                        filmDao.addFilm(film);
-                        JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
+                if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
+                    try{
+                        if(!filmDao.isFilmAdded(code)){
+                            film = new Film(code,name,synopsis,imageUrl,date);
+                            filmDao.addFilm(film);
+                            JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
+                        }else{
+                            JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
+                        }
+                    }catch(Exception exception){
+                        System.err.println(exception.getMessage());
                     }
-                }catch(Exception exception){
-                    System.err.println(exception.getMessage());
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Data Tidak Lengkap!", "Alert", HEIGHT);
                 }
             }
         });
@@ -195,10 +199,10 @@ public class Tambah extends JFrame {
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
-        
     }
 
     public String generateString() {
+        System.out.println("generateString()");
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 5;
@@ -212,7 +216,7 @@ public class Tambah extends JFrame {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
         }while(filmDao.isFilmAdded(generatedString));
-        
-        return generatedString;
+        System.out.println(generatedString.toLowerCase());
+        return generatedString.toLowerCase();
     }
 }
