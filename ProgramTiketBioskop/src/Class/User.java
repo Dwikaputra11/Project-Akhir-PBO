@@ -1,7 +1,5 @@
 package Class;
 
-import java.util.ArrayList;
-
 public class User {
     private String username;
     private String password;
@@ -15,6 +13,11 @@ public class User {
     }
 
     public User(){}
+    
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 
 
     public String getUsername() {
@@ -50,6 +53,5 @@ public class User {
             ", order='" + getOrder() + "'" +
             "}";
     }
-
 
 }

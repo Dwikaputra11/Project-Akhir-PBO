@@ -1,6 +1,7 @@
 package Main;
 
-// import GUI.Login;
+import Class.Order;
+import GUI.Login;
 import GUI.Tambah;
 
 public class Main {
@@ -9,5 +10,6 @@ public class Main {
         // login.initialize();
         Tambah tambah = new Tambah();
         tambah.initialize();
+        // Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
     }
 }

@@ -8,26 +8,48 @@ import Class.User;
 public class UserDao {
     private Connector con = new Connector();
     public User getUser(String username, String pass){
+        System.out.println("GetUser()");
         try{
-            String query = "select * from movies where pass="+pass;
+            String query = "select * from users";
             User user = new User();
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);
             con.statement = con.koneksi.createStatement();
             ResultSet rs = ptsm.executeQuery(query);
-            rs.next();
-            user.setPassword(rs.getString("password"));
-            user.setUsername(rs.getString("username"));
-            return user;
+            while(rs.next()){
+                if(rs.getString("username").equals(username) && rs.getString("password").equals(pass)){
+                    user.setUsername(username);
+                    user.setPassword(pass);
+                    System.out.println(user);
+                    return user;
+                }
+            }
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
         return null;
     }
+    public boolean selectUser(String username, String pass){
+        System.out.println("SelectUser()");
+        try{
+            String query = "select * from users";
+            PreparedStatement ptsm = con.koneksi.prepareStatement(query);
+            con.statement = con.koneksi.createStatement();
+            ResultSet rs = ptsm.executeQuery(query);
+            while(rs.next()){
+                if(rs.getString("username").equals(username)) return true; 
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
 
-    void addUser(User user){
-        String query = "insert into users value (?,?,?,?)";
+    public void addUser(User user){
+        System.out.println("AddUser()");
+        String query = "insert into users(username,password) values (?,?)";
         PreparedStatement pstm;
         try {
+            con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
             pstm.setString(1, user.getUsername());
             pstm.setString(2, user.getPassword());
@@ -38,6 +60,7 @@ public class UserDao {
         }
     }
     public boolean deleteUser(String username){
+        System.out.println("DeleteUser()");
         String query = "delete from users where username="+username;
         PreparedStatement pstm;
         try{

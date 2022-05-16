@@ -11,7 +11,7 @@ public class Connector {
     private final String pass = "";
     public Connector() {
         try {
-            Class.forName("com.mysql.jdbc.cj.driver");
+            // Class.forName("com.mysql.jdbc.cj.driver");
             koneksi = (Connection)DriverManager.getConnection(url, username, pass);
             statement = (Statement)koneksi.createStatement();
         } catch(Exception exception) {

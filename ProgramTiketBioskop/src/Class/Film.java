@@ -1,16 +1,17 @@
 package Class;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Film{
+    private String code;
     private String name;
     private String synopsis;
-    private int code;
-    private Date date;
+    private String date;
     private String imageUrl;
 
 
-    public Film(String name, String synopsis, int code, Date date, String imageUrl) {
+    public Film(String code,String name, String synopsis, String date, String imageUrl) {
         this.name = name;
         this.synopsis = synopsis;
         this.code = code;
@@ -18,9 +19,14 @@ public class Film{
         this.imageUrl = imageUrl;
     }
 
+    public Film(String name, String date){
+        this.name = name;
+        this.date = date;
+    }
     
     public Film() {
     }
+
     
     public String getName() {
         return this.name;
@@ -38,19 +44,19 @@ public class Film{
         this.synopsis = synopsis;
     }
     
-    public int getCode() {
+    public String getCode() {
         return this.code;
     }
     
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
     
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
     
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     
@@ -70,7 +76,4 @@ public class Film{
             ", code='" + getCode() + "'" +
             "}";
     }
-    
-
-    
 }
