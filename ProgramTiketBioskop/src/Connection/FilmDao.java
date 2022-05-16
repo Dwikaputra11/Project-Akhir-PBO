@@ -20,7 +20,7 @@ public class FilmDao {
                     film.setCode(code);
                     film.setName(rs.getString("nama"));
                     film.setSynopsis(rs.getString("sinopsis"));
-                    film.setImageUrl(rs.getString("tanggal"));
+                    film.setImageUrl(rs.getString("gambar"));
                     film.setDate(rs.getString("tanggal"));
                 }
             }

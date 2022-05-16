@@ -19,16 +19,14 @@ public class Film{
         this.imageUrl = imageUrl;
     }
 
+    public Film(String name, String date){
+        this.name = name;
+        this.date = date;
+    }
     
     public Film() {
     }
 
-    public Film(String code, String name, String synopsis, String imageUrl){
-        this.code = code;
-        this.name = name;
-        this.synopsis = synopsis;
-        this.imageUrl = imageUrl;
-    }
     
     public String getName() {
         return this.name;
@@ -78,13 +76,4 @@ public class Film{
             ", code='" + getCode() + "'" +
             "}";
     }
-//   public ArrayList<Film> filmList = new ArrayList<Film>(
-    //     Arrays.asList(
-    //         new Film("","Doctor Strange","Bla bla bla", "12 April 2021","img/20220"),
-    //         new Film("","KKN Penari","Bla bla bla", "13 April 2021","img/20220"),
-    //         new Film("","Doctor Strange","Bla bla bla", "14 April 2021","img/20220"),
-    //         new Film("","Doctor Strange","Bla bla bla", "15 April 2021","img/20220")
-    //     )
-    // );
-    // 
 }
