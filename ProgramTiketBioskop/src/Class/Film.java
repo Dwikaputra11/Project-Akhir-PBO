@@ -1,8 +1,5 @@
 package Class;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Film{
     private String code;
     private String name;

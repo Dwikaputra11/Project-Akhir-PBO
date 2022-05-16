@@ -197,6 +197,7 @@ public class Tambah extends JFrame {
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
         
     }
+    
 
     public String generateString() {
         int leftLimit = 48; // numeral '0'

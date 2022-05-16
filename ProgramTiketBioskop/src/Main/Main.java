@@ -1,15 +1,13 @@
 package Main;
 
-import Class.Order;
-import GUI.Login;
-import GUI.Tambah;
+import GUI.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Login login = new Login();
-        // login.initialize();
+        //Login login = new Login();
+        //login.initialize();
         Tambah tambah = new Tambah();
         tambah.initialize();
-        // Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
+        //Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
     }
 }
