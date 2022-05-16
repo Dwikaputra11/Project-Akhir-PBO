@@ -81,11 +81,9 @@ public class Register {
          registerButton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                // int jumlah = 0;
                 String username = userTextRegister.getText();
                 String password = new String(passwordTextRegister.getPassword());
                 Boolean textFieldKosong = false;
-                // Boolean usernameSama = false;
                  try {
                     // -- MENGECEK APAKAH TEXT FIELD KOSONG
                     if((username.isEmpty()) || (password.isEmpty())) {
@@ -94,12 +92,7 @@ public class Register {
 
                     if(textFieldKosong == false) {
                         // ---MENGECEK USERNAME YANG SAMA
-                        // String data[][] = new String[100][3]; // reminder : getJumlahData tu while loop kaya di bawah make resultSet.next() dengan int jumlah++ doang
-                        // String querySelect = "select * from users";
-                        // PreparedStatement pstmtSelect = connector.koneksi.prepareStatement(querySelect);
-                        // connector.statement = connector.koneksi.createStatement();
-                        // ResultSet resultSet = pstmtSelect.executeQuery(querySelect);
-                        if(userDao.selectUser(username,password)){
+                        if(userDao.isUserExist(username,password)){
                             JOptionPane.showMessageDialog(frame, "Username Telah Digunakan!");
                             userTextRegister.setText("");
                             passwordTextRegister.setText("");
@@ -109,30 +102,6 @@ public class Register {
                             userDao.addUser(user);
                             JOptionPane.showMessageDialog(frame, "Registrasi Berhasil!");
                         }
-
-                        // -- MENGECEK APAKAH USERNAME ADA YANG SAMA
-                        // while (resultSet.next()) {
-                        //     data[jumlah][0] = String.valueOf(resultSet.getInt("id")); // ngambil int jadikan string
-                        //     data[jumlah][1] = resultSet.getString("username"); // ngambil string
-                        //     data[jumlah][2] = resultSet.getString("password");
-                        //     if(data[jumlah][1].equals(username)) {
-                        //         usernameSama = true;
-                        //         break;
-                        //     }
-                        //     jumlah++;
-                        // }
-
-                        // -- JIKA USERNAME ADA YANG SAMA
-                        // if(usernameSama == true) {
-                        // } else {
-                        //     // -- QUERY INSERT KE DATABASE
-                        //     // String queryInsert = "insert into users(username, password) values (?,?)";
-                        //     // PreparedStatement pstmtInsert = connector.koneksi.prepareStatement(queryInsert);
-                        //     // pstmtInsert.setString(1, getUsernameRegister());
-                        //     // pstmtInsert.setString(2, getPasswordRegister());
-                        //     // connector.statement = connector.koneksi.createStatement();
-                        //     // pstmtInsert.executeUpdate();
-                        // }
                     } else {
                         // -- JIKA TEXT FIELD KOSONG
                         JOptionPane.showMessageDialog(frame, "Username/Password tidak boleh kosong!");

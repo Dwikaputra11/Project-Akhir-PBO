@@ -36,8 +36,6 @@ public class Login extends JFrame {
     // final private static Font mainFont = new Font("Roboto", Font.BOLD, 13); FONT GAJADI DIPAKAI WKWK
 
     public void initialize() {
-        // Connector connector = new Connector();
-
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
