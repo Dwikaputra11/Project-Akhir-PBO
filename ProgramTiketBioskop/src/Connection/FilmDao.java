@@ -32,13 +32,13 @@ public class FilmDao {
     public boolean isFilmAdded(String code){
         System.out.println("SelectFilm()");
         try{
-            String query = "select * from movies";
+            String query = "select count(*) as num from movies";
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);
             con.statement = con.koneksi.createStatement();
             ResultSet rs = ptsm.executeQuery(query);
             while(rs.next()){
                 if(rs.getString("kode").equals(code)) return true; 
-            }
+            }  
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
@@ -52,6 +52,23 @@ public class FilmDao {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
             pstm.setString(1, film.getCode());
+            pstm.setString(2, film.getName());
+            pstm.setString(3, film.getSynopsis());
+            pstm.setString(4, film.getDate());
+            pstm.setString(5, film.getImageUrl());
+            pstm.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateFilm(Film film){
+        System.out.println("addFilm()");
+        String query = "update movies set nama = ?,synopsis = ?,tanggal = ?,gambar = ?";
+        PreparedStatement pstm;
+        try {
+            con.statement = con.koneksi.createStatement();
+            pstm = con.koneksi.prepareStatement(query);
             pstm.setString(2, film.getName());
             pstm.setString(3, film.getSynopsis());
             pstm.setString(4, film.getDate());

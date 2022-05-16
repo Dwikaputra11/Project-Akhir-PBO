@@ -28,8 +28,8 @@ public class UserDao {
         }
         return null;
     }
-    public boolean selectUser(String username, String pass){
-        System.out.println("SelectUser()");
+    public boolean isUserExist(String username, String pass){
+        System.out.println("isUserExist()");
         try{
             String query = "select * from users";
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);

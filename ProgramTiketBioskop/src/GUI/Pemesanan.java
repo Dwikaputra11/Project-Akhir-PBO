@@ -1,5 +1,8 @@
 package GUI;
 
+<<<<<<< HEAD
+public class Pemesanan{
+=======
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,7 @@ public class Pemesanan {
     private static JButton backButton;
     private static JButton submitButton;
 
+>>>>>>> a414b0c59cfa43d7497da4c5e1eab7e85db95bd0
     public void initialize() {
         // -- DEKLARASI PANEL & FRAME
         panel = new JPanel();
