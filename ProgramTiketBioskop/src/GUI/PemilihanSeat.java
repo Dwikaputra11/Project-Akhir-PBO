@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,13 +22,15 @@ public class PemilihanSeat extends JFrame {
     private static JButton backButton;
     private static JButton submitButton;
 
+    Border border = BorderFactory.createLineBorder(Color.gray,1);
+
     public void initialize() {
         // -- DEKLARASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
 
         // -- SET SIZE & TITLE FRAME
-        frame.setSize(750, 650);
+        frame.setSize(1250, 650);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setTitle("Pemesanan");
@@ -37,7 +41,9 @@ public class PemilihanSeat extends JFrame {
 
         // -- LABEL GAMBAR POSISI SEAT
         labelGambar = new JLabel();
-        labelGambar.setBounds(100,50,100,100);
+        labelGambar.setBounds(600,50,600,350);
+        labelGambar.setIcon(new ImageIcon("C:\\Users\\asus\\Documents\\Java\\Project-Akhir-PBO\\ProgramTiketBioskop\\img\\seat.png"));
+        labelGambar.setBorder(border);
         panel.add(labelGambar);
 
         // -- TABEL SEAT TERSEDIA
