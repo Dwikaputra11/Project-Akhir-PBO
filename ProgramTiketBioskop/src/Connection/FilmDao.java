@@ -116,6 +116,7 @@ public class FilmDao {
             System.err.println(e.getMessage());
         }
     }
+<<<<<<< HEAD
 
     public void updateFilm(Film film){
         System.out.println("addFilm()");
@@ -136,10 +137,17 @@ public class FilmDao {
     public boolean deleteFilm(int code){
         System.out.println("deleteFilm()");
         String query = "delete from movies where code=?";
+=======
+    public boolean deleteFilm(String code){
+        System.out.println("deleteFilm()");
+        String query = "delete from movies where kode=?";
+>>>>>>> eb370eeab5a20bc889ff3f785f04e137c61a9133
         PreparedStatement pstm;
         try{
            pstm = con.koneksi.prepareStatement(query);
-           pstm.executeQuery();
+           pstm.setString(1, code);
+           pstm.executeUpdate();
+           return true;
         }catch(Exception e){
             System.err.println(e.getMessage());
         }

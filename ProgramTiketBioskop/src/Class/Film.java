@@ -1,6 +1,9 @@
 package Class;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb370eeab5a20bc889ff3f785f04e137c61a9133
 public class Film{
     private String code;
     private String name;

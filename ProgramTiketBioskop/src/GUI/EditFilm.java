@@ -2,7 +2,9 @@ package GUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
 import com.toedter.calendar.JDateChooser;
+
 import Class.Film;
 import Connection.FilmDao;
 
@@ -13,7 +15,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
-public class Tambah extends JFrame {
+public class EditFilm extends JFrame {
     // -- DEKLARASI PANEL & FRAME
     private static JPanel panel;
     private static JFrame frame;
@@ -30,45 +32,45 @@ public class Tambah extends JFrame {
     private static JTextField textFieldSinopsis;
     private static JButton buttonSubmit;
     private static JButton buttonAttach;
+    private static JLabel labelPenampilGambar;
+    private static JLabel labelPenampilPath;
     private static JLabel labelTanggal;
     private static JDateChooser pilihTanggal;
 
     // -- DEKLARASI LABEL DAN DROP FIELD IMAGE
-    private static JLabel labelTextGambar;
-    private static JLabel labelPenampilGambar;
-    private static JLabel labelTextPath;
-    private static JLabel labelPenampilPath;
-
-    //-- BUTTON KEMBALI
-    private static JButton backButton;
-    private static FilmDao filmDao = new FilmDao();
-    private static Film film;
+    private static JLabel labelGambar;
 
     // -- DEKLARASI FONT YANG DIGUNAKAN
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
-    final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18);
-    final private static Font fontKetiga = new Font("TimesRoman", Font.BOLD, 16);
+    final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18); 
+    final private static Font thirdFont = new Font("TimesRoman", Font.PLAIN, 14);
+
+    final private Border border = BorderFactory.createLineBorder(Color.gray,1);
+
+    private Film film;
+    private FilmDao filmDao = new FilmDao();
+
+    public EditFilm(Film film){
+        this.film = film;
+    }
 
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
-
-        // -- INSTANSIASI BORDER JLABEL
-        Border border = BorderFactory.createLineBorder(Color.gray,1);
         
         // -- SET SIZE & TITLE FRAME
         frame.setSize(750, 790);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
-        frame.setTitle("Tambahkan Film");
+        frame.setTitle("Edit Film");
 
         // -- SET WARNA BACKGROUND & LAYOUT PANEL
         panel.setLayout(null);
         panel.setBackground(Color.white);
 
         // -- MAIN MENU TEXT
-        menu = new JLabel("Menu Tambahkan Film");
+        menu = new JLabel("Menu Edit Film");
         menu.setBounds(280,20,300,30);
         menu.setFont(mainFont);
         menu.setForeground(Color.black);
@@ -84,6 +86,7 @@ public class Tambah extends JFrame {
         // -- TEXTFIELD NAMA
         textFieldNama = new JTextField(50);
         textFieldNama.setBounds(200, 85, 290, 25);
+        textFieldNama.setText(film.getName());
         panel.add(textFieldNama);
 
         // -- LABEL KODE
@@ -94,7 +97,7 @@ public class Tambah extends JFrame {
         panel.add(labelKode);
 
         // -- TEXTFIELD KODE FILM
-        textFieldKode = new JLabel(generateString());
+        textFieldKode = new JLabel(film.getCode());
         textFieldKode.setBounds(200, 125, 290, 25);
         textFieldKode.setFont(secondaryFont);
         textFieldKode.setForeground(Color.black);
@@ -110,54 +113,15 @@ public class Tambah extends JFrame {
         // -- TEXTFIELD SINOPSIS
         textFieldSinopsis = new JTextField(50);
         textFieldSinopsis.setBounds(200, 165, 480, 205);
+        textFieldSinopsis.setText(film.getSynopsis());
         panel.add(textFieldSinopsis);
 
-        // -- LABEL TEXT GAMBAR
-        labelTextGambar = new JLabel("Poster Film ");
-        labelTextGambar.setBounds(50,380,170,30);
-        labelTextGambar.setFont(secondaryFont);
-        labelTextGambar.setForeground(Color.black);
-        panel.add(labelTextGambar);
-
-        // -- LABEL TEXT PATH
-        labelTextPath = new JLabel("Path File : ");
-        labelTextPath.setBounds(390,430,170,30);
-        labelTextPath.setFont(secondaryFont);
-        labelTextPath.setForeground(Color.black);
-        panel.add(labelTextPath);
-        
-        // -- LABEL PENAMPIL GAMBAR
-        labelPenampilGambar = new JLabel();
-        labelPenampilGambar.setBounds(200,380,180,150);
-        labelPenampilGambar.setFont(secondaryFont);
-        labelPenampilGambar.setForeground(Color.black);
-        labelPenampilGambar.setBorder(border);
-        panel.add(labelPenampilGambar);
-
-        // -- LABEL TEXT PATH ADDRESS
-        labelPenampilPath = new JLabel("");
-        labelPenampilPath.setBounds(490,435,190,25);
-        labelPenampilPath.setFont(secondaryFont);
-        labelPenampilPath.setForeground(Color.black);
-        labelPenampilPath.setBorder(border);
-        panel.add(labelPenampilPath);
-
-        // -- JLABEL TOMBOL KEMBALI
-        backButton = new JButton("kembali");
-        backButton.setBounds(10,10,80,25);
-        backButton.setForeground(Color.black);
-        backButton.addActionListener((ActionListener) new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    HomeAdmin home = new HomeAdmin();
-                    home.initialize();
-                    frame.dispose();
-                } catch (Exception error) {
-                    System.out.println(error.getMessage());
-                }   
-            }});
-        panel.add(backButton);
+        // -- LABEL GAMBAR
+        labelGambar = new JLabel("Poster Film ");
+        labelGambar.setBounds(50,380,170,30);
+        labelGambar.setFont(secondaryFont);
+        labelGambar.setForeground(Color.black);
+        panel.add(labelGambar);
 
         // -- BUTTON SUBMIT
         buttonSubmit = new JButton("Submit");
@@ -174,30 +138,16 @@ public class Tambah extends JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
                 String date = sdf.format(pilihTanggal.getDate().getTime());
                 System.out.println(date);
-<<<<<<< HEAD
-                if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
-                    try{
-                        if(!filmDao.isFilmAdded(code)){
-                            film = new Film(code,name,synopsis,date,imageUrl);
-                            filmDao.addFilm(film);
-                            JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
-                        }else{
-                            JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
-                        }
-                    }catch(Exception exception){
-                        System.err.println(exception.getMessage());
-=======
                 try{
                     if(!filmDao.isFilmAdded(code)){
-                        film = new Film(code,name,synopsis,date,imageUrl);
+                        film = new Film(code,name,synopsis,imageUrl,date);
                         filmDao.addFilm(film);
                         JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
                     }else{
                         JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
->>>>>>> eb370eeab5a20bc889ff3f785f04e137c61a9133
                     }
-                }else{
-                    JOptionPane.showMessageDialog(frame, "Data Tidak Lengkap!", "Alert", HEIGHT);
+                }catch(Exception exception){
+                    System.err.println(exception.getMessage());
                 }
             }
         });
@@ -208,16 +158,17 @@ public class Tambah extends JFrame {
         labelPenampilGambar.setFont(secondaryFont);
         labelPenampilGambar.setForeground(Color.black);
         labelPenampilGambar.setBorder(border);
+        labelPenampilGambar.setIcon(new ImageIcon(new ImageIcon(film.getImageUrl()).getImage().getScaledInstance(labelPenampilGambar.getWidth(), labelPenampilGambar.getHeight(), Image.SCALE_SMOOTH)));
         panel.add(labelPenampilGambar);
 
         // -- LABEL TEXT PATH ADDRESS
-        labelPenampilPath = new JLabel("");
+        labelPenampilPath = new JLabel(film.getImageUrl());
         labelPenampilPath.setBounds(490,435,190,25);
-        labelPenampilPath.setFont(fontKetiga);
+        labelPenampilPath.setFont(thirdFont);
         labelPenampilPath.setForeground(Color.black);
         labelPenampilPath.setBorder(border);
         panel.add(labelPenampilPath);
-        
+
         // -- BUTTON ATTACH
         buttonAttach = new JButton();
         buttonAttach.setText("Attach");
@@ -252,11 +203,11 @@ public class Tambah extends JFrame {
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
+        
     }
     
 
     public String generateString() {
-        System.out.println("generateString()");
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 5;
@@ -270,7 +221,7 @@ public class Tambah extends JFrame {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
         }while(filmDao.isFilmAdded(generatedString));
-        System.out.println(generatedString.toLowerCase());
-        return generatedString.toLowerCase();
+        
+        return generatedString;
     }
 }
