@@ -6,8 +6,10 @@ public class Main {
     public static void main(String[] args) {
         //Login login = new Login();
         //login.initialize();
-        Tambah tambah = new Tambah();
-        tambah.initialize();
+        //Tambah tambah = new Tambah();
+        //tambah.initialize();
         //Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
+        EditFilm editfilm = new EditFilm();
+        editfilm.initialize();
     }
 }
