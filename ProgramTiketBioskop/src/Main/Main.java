@@ -1,13 +1,12 @@
 package Main;
 
-// import GUI.Login;
-import GUI.Tambah;
+import GUI.PemilihanSeat;
 
 public class Main {
     public static void main(String[] args) {
         // Login login = new Login();
         // login.initialize();
-        Tambah tambah = new Tambah();
-        tambah.initialize();
+        PemilihanSeat seat = new PemilihanSeat();
+        seat.initialize();
     }
 }

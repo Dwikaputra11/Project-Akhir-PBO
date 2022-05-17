@@ -58,6 +58,7 @@ public class HomeUser extends JFrame {
                try {
                    Pemesanan pemesanan = new Pemesanan();
                    pemesanan.initialize();
+                   frame.dispose();
                } catch (Exception e) {
                    System.out.println(e.getMessage());
                }
@@ -101,6 +102,7 @@ public class HomeUser extends JFrame {
                 try {
                     Lihat lihat = new Lihat();
                     lihat.initialize();
+                    frame.dispose();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

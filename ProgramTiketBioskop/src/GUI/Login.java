@@ -1,14 +1,16 @@
 package GUI;
 
-import Connection.Connector;
-
-import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.font.TextAttribute;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.*;
+import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+
+import Class.User;
+// import Connection.Connector;
+import Connection.UserDao;
+
+import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,11 +30,13 @@ public class Login extends JFrame {
     private static JLabel gotoRegisterLabel;
     private static JLabel goToRegisterButton;
 
+    // -- KONEKSI DATABASE MELALUI DAO
+    private User user;
+    private UserDao userDao = new UserDao();
+
     // final private static Font mainFont = new Font("Roboto", Font.BOLD, 13); FONT GAJADI DIPAKAI WKWK
 
     public void initialize() {
-        Connector connector = new Connector();
-
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
@@ -75,18 +79,12 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int jumlah = 0;
+                // int jumlah = 0;
                 String username = userTextLogin.getText();
                 String password = new String(passwordTextLogin.getPassword());
                 Boolean berhasilLogin = false;
                 Boolean berhasilLoginAdmin = false;
                 try { 
-                    String data[][] = new String[100][3];
-                    String query = "select * from users";
-                    PreparedStatement pstmt = connector.koneksi.prepareStatement(query);
-                    connector.statement = connector.koneksi.createStatement();
-                    ResultSet resultSet = pstmt.executeQuery(query);
-
                     // -- MENGECEK USERNAME DAN PASSWORD ADMIN
                     if(("admin".equals(username)) && ("admin".equals(password))) {
                         berhasilLoginAdmin = true;
@@ -94,18 +92,12 @@ public class Login extends JFrame {
 
                     // -- MENGECEK USERNAME DAN PASSWORD USER
                     if (berhasilLoginAdmin.equals(false)) {
-                        while (resultSet.next()) {
-                            data[jumlah][0] = String.valueOf(resultSet.getInt("id")); // ngambil int jadikan string
-                            data[jumlah][1] = resultSet.getString("username"); // ngambil string biasa
-                            data[jumlah][2] = resultSet.getString("password");
-
-                            // -- MENGECEK USERNAME DAN PASSWORD
-                            if((data[jumlah][1].equals(username)) && (data[jumlah][2].equals(password))) {
-                                berhasilLogin = true;
-                                break;
-                            }
-                            jumlah++;
-                        }
+                        user = userDao.getUser(username, password);
+                        if(user == null){
+                            JOptionPane.showMessageDialog(frame, "Kesalahan Username/Password!", "Alert", HEIGHT);
+                        }else{
+                            berhasilLogin = true;
+                        }                        
                     }
 
                     // -- JIKA BERHASIL LOGIN SEBAGAI ADMIN

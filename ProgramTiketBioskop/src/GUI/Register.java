@@ -1,14 +1,17 @@
 package GUI;
 
-import Connection.Connector;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
+
+import Class.User;
+// import Connection.Connector;
+import Connection.UserDao;
+
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.*;
+// import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,11 +30,10 @@ public class Register {
     // -- DEKLARASI NAVIGASI ANTARA TOMBOL REGISTER DAN LOGIN
     private static JLabel goToLoginLabel;
     private static JLabel goToLoginButton;
-
-    // final private static Font mainFont = new Font("Roboto", Font.BOLD, 13); FONT GAJADI DIPAKAI WKWK
+    private static User user;
+    private UserDao userDao = new UserDao();
 
     public void initialize() {
-        Connector connector = new Connector();
 
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
@@ -77,11 +79,9 @@ public class Register {
          registerButton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                int jumlah = 0;
                 String username = userTextRegister.getText();
                 String password = new String(passwordTextRegister.getPassword());
                 Boolean textFieldKosong = false;
-                Boolean usernameSama = false;
                  try {
                     // -- MENGECEK APAKAH TEXT FIELD KOSONG
                     if((username.isEmpty()) || (password.isEmpty())) {
@@ -90,37 +90,14 @@ public class Register {
 
                     if(textFieldKosong == false) {
                         // ---MENGECEK USERNAME YANG SAMA
-                        String data[][] = new String[100][3]; // reminder : getJumlahData tu while loop kaya di bawah make resultSet.next() dengan int jumlah++ doang
-                        String querySelect = "select * from users";
-                        PreparedStatement pstmtSelect = connector.koneksi.prepareStatement(querySelect);
-                        connector.statement = connector.koneksi.createStatement();
-                        ResultSet resultSet = pstmtSelect.executeQuery(querySelect);
-
-                        // -- MENGECEK APAKAH USERNAME ADA YANG SAMA
-                        while (resultSet.next()) {
-                            data[jumlah][0] = String.valueOf(resultSet.getInt("id")); // ngambil int jadikan string
-                            data[jumlah][1] = resultSet.getString("username"); // ngambil string
-                            data[jumlah][2] = resultSet.getString("password");
-                            if(data[jumlah][1].equals(username)) {
-                                usernameSama = true;
-                                break;
-                            }
-                            jumlah++;
-                        }
-
-                        // -- JIKA USERNAME ADA YANG SAMA
-                        if(usernameSama == true) {
+                        if(userDao.isUserExist(username,password)){
                             JOptionPane.showMessageDialog(frame, "Username Telah Digunakan!");
                             userTextRegister.setText("");
                             passwordTextRegister.setText("");
-                        } else {
-                            // -- QUERY INSERT KE DATABASE
-                            String queryInsert = "insert into users(username, password) values (?,?)";
-                            PreparedStatement pstmtInsert = connector.koneksi.prepareStatement(queryInsert);
-                            pstmtInsert.setString(1, getUsernameRegister());
-                            pstmtInsert.setString(2, getPasswordRegister());
-                            connector.statement = connector.koneksi.createStatement();
-                            pstmtInsert.executeUpdate();
+                        }else{
+                            user = new User(username, password);
+                            System.out.println(user);
+                            userDao.addUser(user);
                             JOptionPane.showMessageDialog(frame, "Registrasi Berhasil!");
                         }
                     } else {
