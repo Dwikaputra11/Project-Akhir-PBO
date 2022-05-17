@@ -50,6 +50,10 @@ public class EditFilm extends JFrame {
     private Film film;
     private FilmDao filmDao = new FilmDao();
 
+    public EditFilm(Film film){
+        this.film = film;
+    }
+
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
@@ -82,6 +86,7 @@ public class EditFilm extends JFrame {
         // -- TEXTFIELD NAMA
         textFieldNama = new JTextField(50);
         textFieldNama.setBounds(200, 85, 290, 25);
+        textFieldNama.setText(film.getName());
         panel.add(textFieldNama);
 
         // -- LABEL KODE
@@ -92,7 +97,7 @@ public class EditFilm extends JFrame {
         panel.add(labelKode);
 
         // -- TEXTFIELD KODE FILM
-        textFieldKode = new JLabel(generateString());
+        textFieldKode = new JLabel(film.getCode());
         textFieldKode.setBounds(200, 125, 290, 25);
         textFieldKode.setFont(secondaryFont);
         textFieldKode.setForeground(Color.black);
@@ -108,6 +113,7 @@ public class EditFilm extends JFrame {
         // -- TEXTFIELD SINOPSIS
         textFieldSinopsis = new JTextField(50);
         textFieldSinopsis.setBounds(200, 165, 480, 205);
+        textFieldSinopsis.setText(film.getSynopsis());
         panel.add(textFieldSinopsis);
 
         // -- LABEL GAMBAR
@@ -152,15 +158,17 @@ public class EditFilm extends JFrame {
         labelPenampilGambar.setFont(secondaryFont);
         labelPenampilGambar.setForeground(Color.black);
         labelPenampilGambar.setBorder(border);
+        labelPenampilGambar.setIcon(new ImageIcon(new ImageIcon(film.getImageUrl()).getImage().getScaledInstance(labelPenampilGambar.getWidth(), labelPenampilGambar.getHeight(), Image.SCALE_SMOOTH)));
         panel.add(labelPenampilGambar);
 
         // -- LABEL TEXT PATH ADDRESS
-        labelPenampilPath = new JLabel("");
+        labelPenampilPath = new JLabel(film.getImageUrl());
         labelPenampilPath.setBounds(490,435,190,25);
         labelPenampilPath.setFont(thirdFont);
         labelPenampilPath.setForeground(Color.black);
         labelPenampilPath.setBorder(border);
         panel.add(labelPenampilPath);
+
         // -- BUTTON ATTACH
         buttonAttach = new JButton();
         buttonAttach.setText("Attach");

@@ -1,11 +1,15 @@
 package GUI;
 
 import javax.swing.*;
+
+import Class.Film;
+import Connection.FilmDao;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditKode {
+public class Kode {
     // -- DEKLARASI PANEL & FRAME
     private static JPanel panel;
     private static JFrame frame;
@@ -19,6 +23,8 @@ public class EditKode {
     // -- DEKLARASI TOMBOL KEMBALI DAN SUBMIT
     private static JButton backButton;
     private static JButton submitButton;
+
+    private static FilmDao filmDao = new FilmDao();
 
     public void initialize() {
         // -- DEKLARASI PANEL & FRAME
@@ -71,7 +77,8 @@ public class EditKode {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    EditFilm editfilm = new EditFilm();
+                    Film film = filmDao.getFilm(kodeTextField.getText());
+                    EditFilm editfilm = new EditFilm(film);
                     editfilm.initialize();
                     frame.dispose();
                 } catch (Exception error) {

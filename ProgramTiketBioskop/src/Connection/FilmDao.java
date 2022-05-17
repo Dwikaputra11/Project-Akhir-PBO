@@ -24,6 +24,7 @@ public class FilmDao {
                     film.setDate(rs.getString("tanggal"));
                 }
             }
+            return film;
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
