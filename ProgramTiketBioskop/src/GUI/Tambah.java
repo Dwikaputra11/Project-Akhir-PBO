@@ -180,6 +180,27 @@ public class Tambah extends JFrame {
                             film = new Film(code,name,synopsis,date,imageUrl);
                             filmDao.addFilm(film);
                             JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
+                            JPanel panelRequestToAdd = new JPanel();
+                            panelRequestToAdd.setSize(new Dimension(250, 50));
+                            panelRequestToAdd.setLayout(null);
+                            JLabel label1 = new JLabel("Tambah Film Lagi?");
+                            label1.setVerticalAlignment(SwingConstants.BOTTOM);
+                            label1.setBounds(70, 20, 250, 30);
+                            label1.setHorizontalAlignment(SwingConstants.CENTER);
+                            panelRequestToAdd.add(label1);
+                            UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
+                            int res = JOptionPane.showConfirmDialog(null, panelRequestToAdd, "Konfirmasi",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.PLAIN_MESSAGE);
+                            if(res == 0){
+                                frame.dispose();
+                                Tambah tambah = new Tambah();
+                                tambah.initialize();
+                            }else{
+                                frame.dispose();
+                                HomeAdmin admin = new HomeAdmin();
+                                admin.initialize();
+                            }
                         }else{
                             JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
                         }

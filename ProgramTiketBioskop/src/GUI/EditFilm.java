@@ -12,9 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Random;
-
+import java.util.Date;
 public class EditFilm extends JFrame {
     // -- DEKLARASI PANEL & FRAME
     private static JPanel panel;
@@ -137,18 +137,44 @@ public class EditFilm extends JFrame {
                 String imageUrl = labelPenampilPath.getText();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
                 String date = sdf.format(pilihTanggal.getDate().getTime());
-                System.out.println(date);
-                try{
-                    if(!filmDao.isFilmAdded(code)){
-                        film = new Film(code,name,synopsis,imageUrl,date);
-                        filmDao.addFilm(film);
-                        JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
+                if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
+                    film = new Film(code,name,synopsis,date,imageUrl);
+                    boolean isUpdate = filmDao.updateFilm(film);
+                    try{
+                        if(isUpdate){
+                            filmDao.addFilm(film);
+                            JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
+                            JPanel panelRequestToAdd = new JPanel();
+                            panelRequestToAdd.setSize(new Dimension(250, 50));
+                            panelRequestToAdd.setLayout(null);
+                            JLabel label1 = new JLabel("Update Lagi?");
+                            label1.setVerticalAlignment(SwingConstants.BOTTOM);
+                            label1.setBounds(70, 20, 250, 30);
+                            label1.setHorizontalAlignment(SwingConstants.CENTER);
+                            panelRequestToAdd.add(label1);
+                            UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
+                            int res = JOptionPane.showConfirmDialog(null, panelRequestToAdd, "Konfirmasi",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.PLAIN_MESSAGE);
+                            if(res == 0){
+                                frame.dispose();
+                                Kode kode = new Kode();
+                                kode.initialize();
+                            }else{
+                                frame.dispose();
+                                HomeAdmin admin = new HomeAdmin();
+                                admin.initialize();
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(frame, "Film Gagal Update!", "Alert", HEIGHT);
+                        }
+                    }catch(Exception exception){
+                        System.err.println(exception.getMessage());
                     }
-                }catch(Exception exception){
-                    System.err.println(exception.getMessage());
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Isi Field Kosong!", "Alert", HEIGHT);
                 }
+
             }
         });
         panel.add(buttonSubmit);
@@ -198,30 +224,18 @@ public class EditFilm extends JFrame {
         pilihTanggal = new JDateChooser();
         pilihTanggal.setBounds(200,565,250,30);
         pilihTanggal.setDateFormatString("dd-MMMM-yyyy");
+        try {
+            Date date = new SimpleDateFormat("dd-MMMM-yyyy").parse(film.getDate());
+            pilihTanggal.setDate(date);
+        } catch (ParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         // pilihTanggal.setPreferredSize(new Dimension(250, 30));
         panel.add(pilihTanggal);
 
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
         
-    }
-    
-
-    public String generateString() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 5;
-        Random random = new Random();
-        String generatedString;
-        
-        do{
-            generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-        }while(filmDao.isFilmAdded(generatedString));
-        
-        return generatedString;
     }
 }

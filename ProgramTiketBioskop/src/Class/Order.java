@@ -10,7 +10,7 @@ public class Order extends Film{
     private String username;
     private int totalBooking;
  
-    public Order(int noBooking, ArrayList<String> seat, String username, String name, String date) {
+    public Order(int noBooking,String username, String name, String date, ArrayList<String> seat) {
         super(name,date);
         this.noBooking = noBooking;
         this.seat = seat;

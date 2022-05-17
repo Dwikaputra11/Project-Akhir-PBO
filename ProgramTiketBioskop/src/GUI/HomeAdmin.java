@@ -101,7 +101,7 @@ public class HomeAdmin extends JFrame {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 try {
-                    Lihat edit = new Lihat();
+                    Kode edit = new Kode();
                     edit.initialize();
                     frame.dispose();
                 } catch (Exception e) {
@@ -145,7 +145,7 @@ public class HomeAdmin extends JFrame {
            @Override
            public void mouseClicked(MouseEvent ev) {
                try {
-                   Pemesanan hapus = new Pemesanan();
+                   KodeDelete hapus = new KodeDelete();
                    hapus.initialize();
                    frame.dispose();
                } catch (Exception e) {
