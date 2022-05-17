@@ -62,13 +62,15 @@ public class FilmDao {
             System.err.println(e.getMessage());
         }
     }
-    public boolean deleteFilm(int code){
+    public boolean deleteFilm(String code){
         System.out.println("deleteFilm()");
-        String query = "delete from movies where code="+code;
+        String query = "delete from movies where kode=?";
         PreparedStatement pstm;
         try{
            pstm = con.koneksi.prepareStatement(query);
-           pstm.executeQuery();
+           pstm.setString(1, code);
+           pstm.executeUpdate();
+           return true;
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
