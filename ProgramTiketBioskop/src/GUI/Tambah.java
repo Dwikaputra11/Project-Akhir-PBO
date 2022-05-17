@@ -174,7 +174,6 @@ public class Tambah extends JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
                 String date = sdf.format(pilihTanggal.getDate().getTime());
                 System.out.println(date);
-<<<<<<< HEAD
                 if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
                     try{
                         if(!filmDao.isFilmAdded(code)){
@@ -186,15 +185,6 @@ public class Tambah extends JFrame {
                         }
                     }catch(Exception exception){
                         System.err.println(exception.getMessage());
-=======
-                try{
-                    if(!filmDao.isFilmAdded(code)){
-                        film = new Film(code,name,synopsis,date,imageUrl);
-                        filmDao.addFilm(film);
-                        JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Film Sudah Terdaftar!", "Alert", HEIGHT);
->>>>>>> eb370eeab5a20bc889ff3f785f04e137c61a9133
                     }
                 }else{
                     JOptionPane.showMessageDialog(frame, "Data Tidak Lengkap!", "Alert", HEIGHT);
@@ -253,7 +243,6 @@ public class Tambah extends JFrame {
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
     }
-    
 
     public String generateString() {
         System.out.println("generateString()");
