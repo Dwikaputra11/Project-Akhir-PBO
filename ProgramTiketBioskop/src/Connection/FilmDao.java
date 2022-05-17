@@ -135,7 +135,7 @@ public class FilmDao {
     }
     public boolean deleteFilm(int code){
         System.out.println("deleteFilm()");
-        String query = "delete from movies where code="+code;
+        String query = "delete from movies where code=?";
         PreparedStatement pstm;
         try{
            pstm = con.koneksi.prepareStatement(query);
