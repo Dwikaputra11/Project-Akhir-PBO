@@ -59,14 +59,14 @@ public class EditFilm extends JFrame {
         frame.setSize(750, 790);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
-        frame.setTitle("Tambahkan Film");
+        frame.setTitle("Edit Film");
 
         // -- SET WARNA BACKGROUND & LAYOUT PANEL
         panel.setLayout(null);
         panel.setBackground(Color.white);
 
         // -- MAIN MENU TEXT
-        menu = new JLabel("Menu Tambahkan Film");
+        menu = new JLabel("Menu Edit Film");
         menu.setBounds(280,20,300,30);
         menu.setFont(mainFont);
         menu.setForeground(Color.black);

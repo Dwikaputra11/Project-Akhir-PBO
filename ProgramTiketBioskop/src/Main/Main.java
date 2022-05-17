@@ -9,7 +9,9 @@ public class Main {
         //Tambah tambah = new Tambah();
         //tambah.initialize();
         //Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
-        EditFilm editfilm = new EditFilm();
-        editfilm.initialize();
+        // EditFilm editfilm = new EditFilm();
+        // editfilm.initialize();
+        EditKode editkode = new EditKode();
+        editkode.initialize();
     }
 }
