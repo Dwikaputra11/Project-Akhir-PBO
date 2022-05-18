@@ -16,11 +16,18 @@ public class OrderDao{
             pstm.setInt(1,noBooking);
             con.statement = con.koneksi.createStatement();
             ResultSet rs = pstm.executeQuery(query);
-            order.setNoBooking(noBooking);
-            order.setUsername(rs.getString("username"));
-            order.setSeat(rs.getString("seat"));
-            order.setName(rs.getString("film"));
-            order.setDate(rs.getString("tanggal"));
+            int loop = 1;
+            while(rs.next()){
+                if(loop == 1){
+                    order.setNoBooking(noBooking);
+                    order.setUsername(rs.getString("username"));
+                    order.setName(rs.getString("film"));
+                    order.setDate(rs.getString("tanggal"));
+                }
+                order.addSeat(rs.getString("seat"));
+                order.setTotalBooking(loop);
+                loop++;
+            }
             return order;
         }catch(Exception e){
             System.err.println(e.getMessage());
@@ -43,24 +50,27 @@ public class OrderDao{
         }
         return false;
     }
-    public void addFilm(Order order){
-        System.out.println("addFilm()");
-        String query = "insert into movies(kode,nama,sinopsis,tanggal,gambar) values (?,?,?,?,?)";
+    public void AddOrder(Order order){
+        System.out.println("addOrder()");
+        String query = "insert into order(no_booking,username,film,date,seat) values (?,?,?,?,?)";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
-            pstm.setInt(1, order.getNoBooking());
-            pstm.setString(2, order.getUsername());
-            pstm.setString(3, order.getSeat());
-            pstm.setString(4, order.getName());
-            pstm.setString(5, order.getDate());
-            pstm.executeUpdate();
+            int loop = order.getSeat().size();
+            for(int i = 0; i < loop; i++){
+                pstm.setInt(1, order.getNoBooking());
+                pstm.setString(2, order.getUsername());
+                pstm.setString(3, order.getName());
+                pstm.setString(4, order.getDate());
+                pstm.setString(5, order.getSeat().get(i));
+                pstm.executeUpdate();
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-    public boolean deleteFilm(int noBooking){
+    public boolean deleteOrder(int noBooking){
         System.out.println("deleteOrder()");
         String query = "delete from orders where no_booking=?";
         PreparedStatement pstm;

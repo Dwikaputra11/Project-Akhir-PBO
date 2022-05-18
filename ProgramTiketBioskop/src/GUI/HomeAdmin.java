@@ -59,6 +59,7 @@ public class HomeAdmin extends JFrame {
                try {
                    Tambah tambah = new Tambah();
                    tambah.initialize();
+                   frame.dispose();
                } catch (Exception e) {
                    System.out.println(e.getMessage());
                }
@@ -100,8 +101,14 @@ public class HomeAdmin extends JFrame {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 try {
+<<<<<<< HEAD
                     Kode kode = new Kode();
                     kode.initialize();
+=======
+                    Kode edit = new Kode();
+                    edit.initialize();
+                    frame.dispose();
+>>>>>>> 0ac04c15c00774b92153fccad5e14f157c247cd1
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -143,8 +150,9 @@ public class HomeAdmin extends JFrame {
            @Override
            public void mouseClicked(MouseEvent ev) {
                try {
-                   Pemesanan hapus = new Pemesanan();
+                   KodeDelete hapus = new KodeDelete();
                    hapus.initialize();
+                   frame.dispose();
                } catch (Exception e) {
                    System.out.println(e.getMessage());
                }
