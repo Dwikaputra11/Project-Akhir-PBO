@@ -140,7 +140,7 @@ public class Delete extends JFrame {
                     label1.setHorizontalAlignment(SwingConstants.CENTER);
                     panelConfirm.add(label1);
                     UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-                    int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Confirm",
+                    int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Konfirmasi",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.PLAIN_MESSAGE);
 

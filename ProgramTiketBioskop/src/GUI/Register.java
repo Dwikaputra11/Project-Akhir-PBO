@@ -91,7 +91,7 @@ public class Register {
                     if(textFieldKosong == false) {
                         // ---MENGECEK USERNAME YANG SAMA
                         if(userDao.isUserExist(username,password)){
-                            JOptionPane.showMessageDialog(frame, "Username Telah Digunakan!");
+                            JOptionPane.showMessageDialog(frame, "Username Telah Digunakan!", "Alert", JOptionPane.HEIGHT);
                             userTextRegister.setText("");
                             passwordTextRegister.setText("");
                         }else{
@@ -102,7 +102,7 @@ public class Register {
                         }
                     } else {
                         // -- JIKA TEXT FIELD KOSONG
-                        JOptionPane.showMessageDialog(frame, "Username/Password tidak boleh kosong!");
+                        JOptionPane.showMessageDialog(frame, "Username/Password tidak boleh kosong!","Alert", JOptionPane.HEIGHT);
                         userTextRegister.setText("");
                         passwordTextRegister.setText("");
                     }

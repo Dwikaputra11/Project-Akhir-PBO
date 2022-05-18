@@ -1,6 +1,12 @@
 package GUI;
 
 import javax.swing.*;
+
+import Class.Film;
+import Class.Order;
+import Connection.FilmDao;
+import Connection.OrderDao;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +26,18 @@ public class Pemesanan {
     // -- DEKLARASI TOMBOL KEMBALI DAN SUBMIT
     private static JButton backButton;
     private static JButton submitButton;
+
+    private String kode;
+    private String username;
+
+    private OrderDao orderDao;
+    private FilmDao filmDao = new FilmDao();
+
+    private Film film;
+
+    public Pemesanan(String username){
+        this.username = username;
+    }
 
     public void initialize() {
 
@@ -73,11 +91,21 @@ public class Pemesanan {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    PemilihanSeat seat = new PemilihanSeat();
-                    seat.initialize();
-                    frame.dispose();
-                } catch (Exception error) {
-                    System.out.println(error.getMessage());
+                    kode = kodeTextField.getText();
+                    if(!kode.isBlank()){
+                        if(filmDao.isFilmAdded(kode)){
+                            film = filmDao.getFilm(kode);
+                            PemilihanSeat seat = new PemilihanSeat(film,username);
+                            seat.initialize();
+                            frame.dispose();
+                        }else{
+                            throw new Exception("Film Tidak Terdaftar");
+                        }
+                    }else{
+                        throw new Exception("Isi Field Kosong");
+                    }
+                } catch (Exception msg) {
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
                 }
             }
         });

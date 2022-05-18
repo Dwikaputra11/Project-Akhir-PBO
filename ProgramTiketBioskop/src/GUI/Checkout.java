@@ -1,75 +1,17 @@
 package GUI;
 
 import javax.swing.*;
-<<<<<<< HEAD
 
-=======
->>>>>>> a197f445067d1ca0cce31f4565cae0426666e554
+import Class.Order;
+import Connection.FilmDao;
+import Connection.OrderDao;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-<<<<<<< HEAD
-public class Checkout {
-    // -- DEKLARASI PANEL & FRAME
-    private static JPanel panel;
-    private static JFrame frame;
-
-    // -- DEKLARASI LABEL GAMBAR POSISI SEAT
-    private static JLabel labelTerimakasih;
-
-    // -- DEKLARASI TOMBOL KEMBALI 
-    private static JButton backButton;
-
-    final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 17); 
-
-    public void initialize() {
-        // -- DEKLARASI PANEL & FRAME
-        panel = new JPanel();
-        frame = new JFrame();
-
-        // -- SET WARNA BACKGROUND & LAYOUT PANEL
-        panel.setLayout(null);
-        panel.setBackground(Color.white);
-
-        // -- SET SIZE & TITLE FRAME
-        frame.setSize(375, 265);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(panel);
-        frame.setTitle("Pemesanan");
-
-        // -- PANEL TERIMAKASIH
-        labelTerimakasih = new JLabel("Pemesanan Berhasil!");
-        labelTerimakasih.setBounds(100, 50, 205, 25);
-        labelTerimakasih.setFont(mainFont);
-        labelTerimakasih.setForeground(Color.black);
-        panel.add(labelTerimakasih);
-
-        // -- BUTTON KEMBALI KE MAIN MENU
-        backButton = new JButton("Kembali ke Main Menu");
-        backButton.setFont(mainFont);
-        backButton.setBounds(75, 120, 205, 35);
-        backButton.setForeground(Color.black);
-        backButton.addActionListener((ActionListener) new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    HomeUser user = new HomeUser();
-                    user.initialize();
-                    frame.dispose();
-                } catch (Exception error) {
-                    System.out.println(error.getMessage());
-                }
-            }
-        });
-        panel.add(backButton);
-
-        frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
-        frame.setVisible(true); // -- MEMUNCULKAN WINDOW
-    }
-=======
-
 public class Checkout extends JFrame{
+    // -- DEKLARASI PANEL & FRAME
     private static JFrame frame;
     private static JPanel panel;
     private static JScrollPane scrollPane;
@@ -102,8 +44,12 @@ public class Checkout extends JFrame{
     final int widthTextLabel = 200;
     final int heightTextLabel = 30;
 
-    public Checkout(){
-        int n = 2;
+    private Order order;
+    private OrderDao orderDao = new OrderDao();
+
+    public Checkout(Order order){
+        this.order = order;
+        int n = order.getSeat().size();
         labelPemesanan = new JLabel[n];
         labelNoBooking = new JLabel[n];
         labelUsername = new JLabel[n];
@@ -139,7 +85,7 @@ public class Checkout extends JFrame{
         panel.add(labelJudul);
 
         int yLabel = 50;
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i < order.getSeat().size(); i++){
             // Pemesanan
             labelPemesanan[i] = new JLabel();
             labelPemesanan[i].setText("No.Pemesanan : " + (i + 1));
@@ -156,7 +102,7 @@ public class Checkout extends JFrame{
             panel.add(labelNoBooking[i]);
 
             textNoBooking[i] = new JLabel();
-            textNoBooking[i].setText(": A1");
+            textNoBooking[i].setText(": " + order.getNoBooking());
             textNoBooking[i].setBounds(xTextLabel,yLabel,widthTextLabel,heightTextLabel);
             textNoBooking[i].setFont(thirdFont);
             panel.add(textNoBooking[i]);
@@ -170,7 +116,7 @@ public class Checkout extends JFrame{
             panel.add(labelUsername[i]);
 
             textUsername[i] = new JLabel();
-            textUsername[i].setText(": Nama");
+            textUsername[i].setText(": " + order.getUsername());
             textUsername[i].setBounds(xTextLabel,yLabel,widthTextLabel,heightTextLabel);
             textUsername[i].setFont(thirdFont);
             panel.add(textUsername[i]);
@@ -184,7 +130,7 @@ public class Checkout extends JFrame{
             panel.add(labelFilm[i]);
 
             textFilm[i] = new JLabel();
-            textFilm[i].setText(": Nama");
+            textFilm[i].setText(": " + order.getName());
             textFilm[i].setBounds(xTextLabel,yLabel,widthTextLabel,heightTextLabel);
             textFilm[i].setFont(thirdFont);
             panel.add(textFilm[i]);
@@ -198,7 +144,7 @@ public class Checkout extends JFrame{
             panel.add(labelTanggal[i]);
 
             textTanggal[i] = new JLabel();
-            textTanggal[i].setText(": 00-00-0000");
+            textTanggal[i].setText(": " + order.getDate());
             textTanggal[i].setBounds(xTextLabel,yLabel,widthTextLabel,heightTextLabel);
             textTanggal[i].setFont(thirdFont);
             panel.add(textTanggal[i]);
@@ -212,7 +158,7 @@ public class Checkout extends JFrame{
             panel.add(labelSeat[i]);
 
             textSeat[i] = new JLabel();
-            textSeat[i].setText(": A1");
+            textSeat[i].setText(": " + order.getSeat().get(i));
             textSeat[i].setBounds(xTextLabel,yLabel,widthTextLabel,heightTextLabel);
             textSeat[i].setFont(thirdFont);
             panel.add(textSeat[i]);
@@ -237,7 +183,4 @@ public class Checkout extends JFrame{
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); 
     }
-
-
->>>>>>> a197f445067d1ca0cce31f4565cae0426666e554
 }
