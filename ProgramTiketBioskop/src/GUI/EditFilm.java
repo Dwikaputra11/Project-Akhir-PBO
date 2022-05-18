@@ -19,6 +19,7 @@ public class EditFilm extends JFrame {
     // -- DEKLARASI PANEL & FRAME
     private static JPanel panel;
     private static JFrame frame;
+    private static JButton backButton;
 
     // -- DEKLARASI TITLE TAMBAHKAN FILM
     private static JLabel menu;
@@ -122,6 +123,23 @@ public class EditFilm extends JFrame {
         labelGambar.setFont(secondaryFont);
         labelGambar.setForeground(Color.black);
         panel.add(labelGambar);
+
+        // -- JLABEL TOMBOL KEMBALI
+        backButton = new JButton("kembali");
+        backButton.setBounds(10,10,80,25);
+        backButton.setForeground(Color.black);
+        backButton.addActionListener((ActionListener) new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    HomeAdmin home = new HomeAdmin();
+                    home.initialize();
+                    frame.dispose();
+                } catch (Exception error) {
+                    System.out.println(error.getMessage());
+                }   
+            }});
+        panel.add(backButton);
 
         // -- BUTTON SUBMIT
         buttonSubmit = new JButton("Submit");
@@ -228,7 +246,6 @@ public class EditFilm extends JFrame {
             Date date = new SimpleDateFormat("dd-MMMM-yyyy").parse(film.getDate());
             pilihTanggal.setDate(date);
         } catch (ParseException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         // pilihTanggal.setPreferredSize(new Dimension(250, 30));

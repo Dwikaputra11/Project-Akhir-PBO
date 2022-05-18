@@ -60,7 +60,7 @@ public class KodeDelete {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    HomeUser home = new HomeUser();
+                    HomeAdmin home = new HomeAdmin();
                     home.initialize();
                     frame.dispose();
                 } catch (Exception error) {

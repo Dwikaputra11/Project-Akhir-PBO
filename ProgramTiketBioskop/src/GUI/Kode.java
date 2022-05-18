@@ -60,7 +60,7 @@ public class Kode {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    HomeUser home = new HomeUser();
+                    HomeAdmin home = new HomeAdmin();
                     home.initialize();
                     frame.dispose();
                 } catch (Exception error) {
@@ -78,8 +78,8 @@ public class Kode {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Film film = filmDao.getFilm(kodeTextField.getText());
-                    EditFilm editfilm = new EditFilm(film);
-                    editfilm.initialize();
+                    EditFilm editFilm = new EditFilm(film);
+                    editFilm.initialize();
                     frame.dispose();
                 } catch (Exception error) {
                     System.out.println(error.getMessage());
