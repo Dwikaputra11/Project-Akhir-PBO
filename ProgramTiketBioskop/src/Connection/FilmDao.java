@@ -44,8 +44,8 @@ public class FilmDao {
             while(rs.next()){
                 film = new Film(
                     rs.getString("kode"),rs.getString("nama"),
-                    rs.getString("sinopsis"),rs.getString("gambar"),
-                    rs.getString("tanggal"));
+                    rs.getString("sinopsis"),rs.getString("tanggal"),
+                    rs.getString("gambar"));
 
                 filmList.add(film);
             }
@@ -117,29 +117,34 @@ public class FilmDao {
         }
     }
 
-    public void updateFilm(Film film){
+    public boolean updateFilm(Film film){
         System.out.println("addFilm()");
-        String query = "update movies set nama = ?,synopsis = ?,tanggal = ?,gambar = ?";
+        String query = "update movies set nama = ?,sinopsis = ?,tanggal = ?,gambar = ? where kode=?";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
-            pstm.setString(2, film.getName());
-            pstm.setString(3, film.getSynopsis());
-            pstm.setString(4, film.getDate());
-            pstm.setString(5, film.getImageUrl());
+            pstm.setString(1, film.getName());
+            pstm.setString(2, film.getSynopsis());
+            pstm.setString(3, film.getDate());
+            pstm.setString(4, film.getImageUrl());
+            pstm.setString(5, film.getCode());
             pstm.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        return false;
     }
-    public boolean deleteFilm(int code){
+    public boolean deleteFilm(String code){
         System.out.println("deleteFilm()");
-        String query = "delete from movies where code="+code;
+        String query = "delete from movies where kode=?";
         PreparedStatement pstm;
         try{
            pstm = con.koneksi.prepareStatement(query);
-           pstm.executeQuery();
+           pstm.setString(1, code);
+           pstm.executeUpdate();
+           return true;
         }catch(Exception e){
             System.err.println(e.getMessage());
         }

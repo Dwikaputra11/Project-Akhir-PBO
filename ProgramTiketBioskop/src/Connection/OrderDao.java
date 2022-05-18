@@ -52,7 +52,7 @@ public class OrderDao{
     }
     public void AddOrder(Order order){
         System.out.println("addOrder()");
-        String query = "insert into order(kode,nama,sinopsis,tanggal,gambar) values (?,?,?,?,?)";
+        String query = "insert into order(no_booking,username,film,date,seat) values (?,?,?,?,?)";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();
@@ -61,9 +61,9 @@ public class OrderDao{
             for(int i = 0; i < loop; i++){
                 pstm.setInt(1, order.getNoBooking());
                 pstm.setString(2, order.getUsername());
-                pstm.setString(3, order.getSeat().get(i));
-                pstm.setString(4, order.getName());
-                pstm.setString(5, order.getDate());
+                pstm.setString(3, order.getName());
+                pstm.setString(4, order.getDate());
+                pstm.setString(5, order.getSeat().get(i));
                 pstm.executeUpdate();
             }
         } catch (Exception e) {

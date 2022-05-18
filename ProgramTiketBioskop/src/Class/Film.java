@@ -1,6 +1,5 @@
 package Class;
 
-
 public class Film{
     private String code;
     private String name;
