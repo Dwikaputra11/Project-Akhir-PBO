@@ -100,8 +100,8 @@ public class HomeAdmin extends JFrame {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 try {
-                    Lihat edit = new Lihat();
-                    edit.initialize();
+                    Kode kode = new Kode();
+                    kode.initialize();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
