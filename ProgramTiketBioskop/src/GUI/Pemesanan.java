@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+// import java.sql.Connection;
 
 public class Pemesanan {
     // -- DEKLARASI PANEL & FRAME
@@ -21,6 +22,7 @@ public class Pemesanan {
     private static JButton submitButton;
 
     public void initialize() {
+
         // -- DEKLARASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();

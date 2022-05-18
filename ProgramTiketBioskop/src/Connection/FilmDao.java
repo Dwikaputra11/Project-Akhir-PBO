@@ -2,6 +2,7 @@ package Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import Class.Film;
 
@@ -24,15 +25,69 @@ public class FilmDao {
                     film.setDate(rs.getString("tanggal"));
                 }
             }
+            return film;
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
         return null;   
     }
-    public boolean isFilmAdded(String code){
+
+    public ArrayList<Film> getFilmList(){
+        System.out.println("getFilm()");
+        try{
+            String query = "select * from movies";
+            ArrayList<Film> filmList = new ArrayList<>();
+            Film film = new Film();
+            PreparedStatement ptsm = con.koneksi.prepareStatement(query);
+            con.statement = con.koneksi.createStatement();
+            ResultSet rs = ptsm.executeQuery(query);
+            while(rs.next()){
+                film = new Film(
+                    rs.getString("kode"),rs.getString("nama"),
+                    rs.getString("sinopsis"),rs.getString("gambar"),
+                    rs.getString("tanggal"));
+
+                filmList.add(film);
+            }
+            return filmList;
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return null;   
+    }
+
+    public boolean isContainFilm(){
+        System.out.println("isContainFilm()");
+        try{
+            String query = "select count(*) as num from movies";
+            PreparedStatement ptsm = con.koneksi.prepareStatement(query);
+            con.statement = con.koneksi.createStatement();
+            ResultSet rs = ptsm.executeQuery(query);
+            rs.next();
+            if(rs.getInt("num") > 0) return true;
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+    public int countFilm(){
         System.out.println("SelectFilm()");
         try{
             String query = "select count(*) as num from movies";
+            PreparedStatement ptsm = con.koneksi.prepareStatement(query);
+            con.statement = con.koneksi.createStatement();
+            ResultSet rs = ptsm.executeQuery(query);
+            rs.next();
+            return rs.getInt("num");
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+    public boolean isFilmAdded(String code){
+        System.out.println("SelectFilm()");
+        try{
+            String query = "select * from movies";
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);
             con.statement = con.koneksi.createStatement();
             ResultSet rs = ptsm.executeQuery(query);

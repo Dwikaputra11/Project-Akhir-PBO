@@ -177,7 +177,7 @@ public class Tambah extends JFrame {
                 if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
                     try{
                         if(!filmDao.isFilmAdded(code)){
-                            film = new Film(code,name,synopsis,imageUrl,date);
+                            film = new Film(code,name,synopsis,date,imageUrl);
                             filmDao.addFilm(film);
                             JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
                         }else{
