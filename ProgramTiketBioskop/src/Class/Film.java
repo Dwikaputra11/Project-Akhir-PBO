@@ -16,7 +16,8 @@ public class Film{
         this.imageUrl = imageUrl;
     }
 
-    public Film(String name, String date){
+    public Film(String code,String name, String date){
+        this.code = code;
         this.name = name;
         this.date = date;
     }

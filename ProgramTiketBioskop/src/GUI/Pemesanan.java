@@ -116,6 +116,7 @@ public class Pemesanan {
                                 if(filmDao.isFilmAdded(kode)){
                                     film = filmDao.getFilm(kode);
                                     order = new Order();
+                                    order.setKodeFilm(kode);
                                     order.setUsername(username);
                                     order.setDate(film.getDate());
                                     order.setName(film.getName());

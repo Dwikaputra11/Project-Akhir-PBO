@@ -6,25 +6,17 @@ import java.util.ArrayList;
 public class Order extends Film{
     private int noBooking;
     private ArrayList<String> seats;
-    private String seat;
     private String username;
     private int totalBooking;
+    private String kodeFilm;
  
-    public Order(int noBooking,String username, String name, String date, ArrayList<String> seats) {
-        super(name,date);
+    public Order(int noBooking,String kodeFilm,String username, String name, String date, ArrayList<String> seats) {
+        super(kodeFilm,name,date);
         this.noBooking = noBooking;
         this.seats = seats;
         this.username = username;
         this.totalBooking = 0;
     }
-
-    // public Order(int noBooking,String username, String name, String date, String seat) {
-    //     super(name,date);
-    //     this.noBooking = noBooking;
-    //     this.seat = seat;
-    //     this.username = username;
-    //     this.totalBooking = 0;
-    // }
 
     public Order(){
 
@@ -38,13 +30,13 @@ public class Order extends Film{
         this.noBooking = noBooking;
     }
 
-    // public String getSeat() {
-    //     return this.seat;
-    // }
+    public String getkodeFilm(){
+        return this.kodeFilm;
+    }
 
-    // public void setSeat(String seat) {
-    //     this.seat = seat;
-    // }
+    public void setKodeFilm(String kodeFilm){
+        this.kodeFilm = kodeFilm;
+    }
 
     public ArrayList<String> getSeats() {
         return this.seats;
