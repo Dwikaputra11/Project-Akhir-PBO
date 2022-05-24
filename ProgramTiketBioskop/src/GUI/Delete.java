@@ -128,22 +128,16 @@ public class Delete extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    JPanel panelConfirm = new JPanel();
-                    panelConfirm.setSize(new Dimension(250, 50));
-                    panelConfirm.setLayout(null);
-                    JLabel label1 = new JLabel("Yakin ingin menghapus??");
-                    label1.setVerticalAlignment(SwingConstants.BOTTOM);
-                    label1.setBounds(70, 20, 250, 30);
-                    label1.setHorizontalAlignment(SwingConstants.CENTER);
-                    panelConfirm.add(label1);
-                    UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-                    int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Konfirmasi",
+                    int res = JOptionPane.showConfirmDialog(frame, "Yakin ingin menghapus?", "Konfirmasi",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.PLAIN_MESSAGE);
 
-                    if(res==0){
+                    if(res==JOptionPane.YES_OPTION){
                         if(filmDao.deleteFilm(film.getCode())){
                             JOptionPane.showMessageDialog(frame, "Film Berhasil Dihapus!");
+                            HomeAdmin admin = new HomeAdmin();
+                            admin.initialize();
+                            frame.dispose();
                         } 
                     } 
                             

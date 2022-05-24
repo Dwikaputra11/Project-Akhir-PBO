@@ -28,22 +28,23 @@ public class PemilihanSeat extends JFrame {
     // -- DEKLARASI TOMBOL KEMBALI DAN SUBMIT
     private static JButton backButton;
     private static JButton submitButton;
-    private static JTextField noSeat;
+    private static JLabel[] seatLabel;
+    private static JTextField[] submitField;
 
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 17); 
 
     Border border = BorderFactory.createLineBorder(Color.gray,1);
 
-    private Film film;
     private static OrderDao orderDao = new OrderDao();
     private int noBooking;
-    private String username;
-    private ArrayList<String> seats = new ArrayList<>();
-    private String seat;
+    private Order order;
+    private int totalBooking;
 
-    public PemilihanSeat(Film film,String username){
-        this.film = film;
-        this.username =  username;
+    public PemilihanSeat(Order order){
+        this.order = order; 
+        totalBooking = order.getTotalBooking();
+        seatLabel = new JLabel[totalBooking];
+        submitField = new JTextField[totalBooking];
     }
 
     public void initialize() {
@@ -64,12 +65,12 @@ public class PemilihanSeat extends JFrame {
         // -- LABEL GAMBAR POSISI SEAT
         labelGambar = new JLabel();
         labelGambar.setBounds(600,70,600,350);
-        labelGambar.setIcon(new ImageIcon("C:\\Users\\asus\\Documents\\Java\\Project-Akhir-PBO\\ProgramTiketBioskop\\img\\seat.png"));
+        labelGambar.setIcon(new ImageIcon("C:\\dev\\Java\\Project-Akhir-PBO\\ProgramTiketBioskop\\img\\seat.png"));
         labelGambar.setBorder(border);
         panel.add(labelGambar);
 
-        labelSeat = new JLabel("Masukkan no Seat :");
-        labelSeat.setBounds(545, 470, 305, 25);
+        labelSeat = new JLabel("Masukkan No Seat ");
+        labelSeat.setBounds(545, 10, 305, 25);
         labelSeat.setFont(mainFont);
         labelSeat.setForeground(Color.black);
         panel.add(labelSeat);
@@ -96,13 +97,29 @@ public class PemilihanSeat extends JFrame {
                 }
             }});
         panel.add(backButton);
-
-        // -- SUBMIT FIELD
-        noSeat = new JTextField();
-        // submitTextField.setFont(mainFont);
-        noSeat.setBounds(465, 500, 305, 25);
-        noSeat.setForeground(Color.black);
-        panel.add(noSeat);
+        
+        int xLabel1 = 145;
+        int xLabel2 = 65;
+         // -- MENAMPILKAN FIELD PENGISIAN SEAT
+         for(int i = 0; i < totalBooking; i++) {
+            // -- LABEL NO SEAT
+                seatLabel[i] = new JLabel("Masukkan Seat no " + (i + 1) + " :");
+                seatLabel[i].setBounds(xLabel1, 470, 305, 25);
+                seatLabel[i].setFont(mainFont);
+                seatLabel[i].setForeground(Color.black);
+                panel.add(seatLabel[i]);
+    
+                xLabel1 += 400;
+    
+            // -- SUBMIT FIELD 
+                submitField[i] = new JTextField();
+                submitField[i].setBounds(xLabel2, 500, 305, 25);
+                submitField[i].setForeground(Color.black);
+                panel.add(submitField[i]);
+    
+                xLabel2 += 400;
+                // cobaTampil[i] = order.getSeat();
+            }
 
         // -- SUBMIT BUTTON
         submitButton = new JButton("Submit");
@@ -113,25 +130,22 @@ public class PemilihanSeat extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    seat = noSeat.getText().toUpperCase();
-                    if(!seat.isBlank()){
-                        JPanel panelConfirm = new JPanel();
-                        panelConfirm.setSize(new Dimension(250, 50));
-                        panelConfirm.setLayout(null);
-                        JLabel label1 = new JLabel("Yakin dengan pemesanan ?");
-                        label1.setVerticalAlignment(SwingConstants.BOTTOM);
-                        label1.setBounds(70, 20, 250, 30);
-                        label1.setHorizontalAlignment(SwingConstants.CENTER);
-                        panelConfirm.add(label1);
-                        UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-                        int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Konfirmasi",
+                    // Cek Field Kosong
+                    if(isFilled()){
+                        int res = JOptionPane.showConfirmDialog(frame, "Yakin dengan Pemesanan",
+                         "Konfirmasi",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.PLAIN_MESSAGE);
-    
-                        if(res==0){ 
+                        
+                        // Hasil Confirm = YES
+                        if(res == JOptionPane.YES_OPTION){ 
                             noBooking = generatedNumber();
-                            seats.add(seat);
-                            Order order = new Order(noBooking,username,film.getName(),film.getDate(),seats);
+                            order.setNoBooking(noBooking);
+                            ArrayList<String> seats = new ArrayList<>();
+                            for(int i = 0; i < totalBooking; i++){
+                                seats.add(submitField[i].getText().toUpperCase());
+                            }
+                            order.setSeats(seats);
                             orderDao.AddOrder(order);
                             Checkout checkout = new Checkout(order);
                             checkout.initialize();
@@ -167,5 +181,13 @@ public class PemilihanSeat extends JFrame {
         }while(orderDao.isOrderExist(generatedNumber));
 
         return generatedNumber;
+    }
+
+    // Fungsi Field Kosong
+    boolean isFilled(){
+        for(int i = 0; i < totalBooking; i++){
+            if(submitField[i].getText().isBlank()) return false;
+        }
+        return true;
     }
 }
