@@ -228,7 +228,6 @@ public class EditFilm extends JFrame {
             Date date = new SimpleDateFormat("dd-MMMM-yyyy").parse(film.getDate());
             pilihTanggal.setDate(date);
         } catch (ParseException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         // pilihTanggal.setPreferredSize(new Dimension(250, 30));
