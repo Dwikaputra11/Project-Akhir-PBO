@@ -1,13 +1,8 @@
 package GUI;
 
 import javax.swing.*;
-<<<<<<< HEAD
-
-import Class.Film;
-=======
 import Class.Film;
 import Class.Order;
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 import Connection.FilmDao;
 
 import java.awt.*;
@@ -36,22 +31,8 @@ public class Pemesanan {
     private static JButton backButton;
     private static JButton submitButton;
 
-<<<<<<< HEAD
-    private String kode;
-    private String username;
-
-    // private OrderDao orderDao;
-    private FilmDao filmDao = new FilmDao();
-
-    private Film film;
-
-    public Pemesanan(String username){
-        this.username = username;
-    }
-=======
     private static FilmDao filmDao = new FilmDao();
     private static ArrayList<Film> filmList;
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
     public void initialize() {
         Order order = new Order();
@@ -118,23 +99,6 @@ public class Pemesanan {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-<<<<<<< HEAD
-                    kode = kodeTextField.getText();
-                    if(!kode.isBlank()){
-                        if(filmDao.isFilmAdded(kode)){
-                            film = filmDao.getFilm(kode);
-                            PemilihanSeat seat = new PemilihanSeat(film,username);
-                            seat.initialize();
-                            frame.dispose();
-                        }else{
-                            throw new Exception("Film Tidak Terdaftar");
-                        }
-                    }else{
-                        throw new Exception("Isi Field Kosong");
-                    }
-                } catch (Exception msg) {
-                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
-=======
                     if(filmDao.isContainFilm()) { // -- JALANKAN APABILA ADA DATA DALAM DATABASE
                         Boolean kodeSama = false;
                         Boolean kelebihanJumlahSeat = false;
@@ -186,7 +150,6 @@ public class Pemesanan {
                     }
                 } catch (Exception error) {
                     System.out.println(error.getMessage());
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
                 }
             }
         });

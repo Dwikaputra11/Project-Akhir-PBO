@@ -22,7 +22,7 @@ public class OrderDao{
                 order.setUsername(rs.getString("username"));
                 order.setName(rs.getString("film"));
                 order.setDate(rs.getString("tanggal"));
-                order.addSeat(rs.getString("seat"));
+                order.addSeats(rs.getString("seat"));
                 order.setTotalBooking(loop);
             }
             return order;
@@ -54,13 +54,13 @@ public class OrderDao{
         try {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
-            int loop = order.getSeat().size();
+            int loop = order.getSeats().size();
             for(int i = 0; i < loop; i++){
                 pstm.setInt(1, order.getNoBooking());
                 pstm.setString(2, order.getUsername());
                 pstm.setString(3, order.getName());
                 pstm.setString(4, order.getDate());
-                pstm.setString(5, order.getSeat().get(i));
+                pstm.setString(5, order.getSeats().get(i));
                 pstm.executeUpdate();
             }
         } catch (Exception e) {
