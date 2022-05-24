@@ -73,9 +73,9 @@ public class Pemesanan {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    PemilihanSeat seat = new PemilihanSeat();
-                    seat.initialize();
-                    frame.dispose();
+                    // PemilihanSeat seat = new PemilihanSeat();
+                    // seat.initialize();
+                    // frame.dispose();
                 } catch (Exception error) {
                     System.out.println(error.getMessage());
                 }

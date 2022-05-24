@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.DimensionUIResource;
 
 import Class.Film;
 import Connection.FilmDao;
@@ -10,6 +11,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Lihat extends JFrame{
@@ -27,6 +35,8 @@ public class Lihat extends JFrame{
     private static JLabel[] textCode;
     private static JLabel[] textDate;
     private static JTextArea[] textSynopsis;
+
+    private static JTable kodeTable;
 
     private static JButton btnBack;
 
@@ -77,7 +87,11 @@ public class Lihat extends JFrame{
     public void initialize() {
         frame = new JFrame();
         panel = new JPanel();
-        panel.setSize(widthFrame, heigthFrame);
+        scrollPanel = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setBounds(0, 1000, 750, 600);
+        scrollPanel.setViewportView(panel);
+        panel.setMinimumSize(new Dimension(widthFrame, heigthFrame));
+        panel.setPreferredSize(new Dimension(widthFrame, 5000));
         panel.setAutoscrolls(true);
 
         GroupLayout layout = new GroupLayout(panel);
@@ -89,6 +103,8 @@ public class Lihat extends JFrame{
         panel.setBackground(Color.white);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
+
+
 
         btnBack = new JButton("Kembali");
         btnBack.setBounds(10,20, 90, 25);
@@ -207,7 +223,5 @@ public class Lihat extends JFrame{
         frame.setVisible(true);
         // pack();
     }
-
-    
 
 }
