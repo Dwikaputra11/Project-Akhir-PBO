@@ -1,8 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,16 +15,10 @@ public class PemilihanSeat extends JFrame {
 
     // -- DEKLARASI LABEL GAMBAR POSISI SEAT
     private static JLabel labelGambar;
-    private static JLabel noSeat;
 
     // -- DEKLARASI TOMBOL KEMBALI DAN SUBMIT
     private static JButton backButton;
     private static JButton submitButton;
-    private static JTextField submitTextField;
-
-    final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 17); 
-
-    Border border = BorderFactory.createLineBorder(Color.gray,1);
 
     public void initialize() {
         // -- DEKLARASI PANEL & FRAME
@@ -34,7 +26,7 @@ public class PemilihanSeat extends JFrame {
         frame = new JFrame();
 
         // -- SET SIZE & TITLE FRAME
-        frame.setSize(1250, 650);
+        frame.setSize(750, 650);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setTitle("Pemesanan");
@@ -45,21 +37,12 @@ public class PemilihanSeat extends JFrame {
 
         // -- LABEL GAMBAR POSISI SEAT
         labelGambar = new JLabel();
-        labelGambar.setBounds(600,70,600,350);
-        labelGambar.setIcon(new ImageIcon("C:\\Users\\asus\\Documents\\Java\\Project-Akhir-PBO\\ProgramTiketBioskop\\img\\seat.png"));
-        labelGambar.setBorder(border);
+        labelGambar.setBounds(100,50,100,100);
         panel.add(labelGambar);
-
-        noSeat = new JLabel("Masukkan no Seat :");
-        noSeat.setBounds(545, 470, 305, 25);
-        noSeat.setFont(mainFont);
-        noSeat.setForeground(Color.black);
-        panel.add(noSeat);
 
         // -- TABEL SEAT TERSEDIA
         kodeTable = new JTable();
-        kodeTable.setBounds(40,70,530,350);
-        kodeTable.setBorder(border);
+        kodeTable.setBounds(60,60,60,60);
         panel.add(kodeTable);
 
         // -- JLABEL TOMBOL KEMBALI
@@ -79,24 +62,16 @@ public class PemilihanSeat extends JFrame {
             }});
         panel.add(backButton);
 
-        // -- SUBMIT FIELD
-        submitTextField = new JTextField();
-        // submitTextField.setFont(mainFont);
-        submitTextField.setBounds(465, 500, 305, 25);
-        submitTextField.setForeground(Color.black);
-        panel.add(submitTextField);
-
         // -- SUBMIT BUTTON
         submitButton = new JButton("Submit");
-        submitButton.setFont(mainFont);
-        submitButton.setBounds(575, 550, 85, 35);
+        submitButton.setBounds(350, 550, 85, 25);
         submitButton.setForeground(Color.black);
         submitButton.addActionListener((ActionListener) new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Checkout checkout = new Checkout();
-                    checkout.initialize();
+                    PemilihanSeat seat = new PemilihanSeat();
+                    seat.initialize();
                     frame.dispose();
                 } catch (Exception error) {
                     System.out.println(error.getMessage());
