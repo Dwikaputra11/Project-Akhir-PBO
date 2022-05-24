@@ -5,8 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import Class.Order;
 import Class.User;
-// import Connection.Connector;
 import Connection.UserDao;
 
 import java.awt.event.MouseEvent;
@@ -40,6 +40,8 @@ public class Login extends JFrame {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
+
+        Order order = new Order();
         
         // -- SET SIZE & TITLE FRAME
         frame.setSize(375, 265);
@@ -97,6 +99,9 @@ public class Login extends JFrame {
                             JOptionPane.showMessageDialog(frame, "Kesalahan Username/Password!", "Alert", HEIGHT);
                         }else{
                             berhasilLogin = true;
+                            order.setUsername(username);
+                            Checkout checkout = new Checkout(order);
+                            checkout.getForeground();
                         }                        
                     }
 

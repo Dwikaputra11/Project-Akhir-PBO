@@ -33,7 +33,7 @@ public class FilmDao {
     }
 
     public ArrayList<Film> getFilmList(){
-        System.out.println("getFilm()");
+        // System.out.println("getFilm()");
         try{
             String query = "select * from movies";
             ArrayList<Film> filmList = new ArrayList<>();
@@ -43,8 +43,10 @@ public class FilmDao {
             ResultSet rs = ptsm.executeQuery(query);
             while(rs.next()){
                 film = new Film(
-                    rs.getString("kode"),rs.getString("nama"),
-                    rs.getString("sinopsis"),rs.getString("tanggal"),
+                    rs.getString("kode"),
+                    rs.getString("nama"),
+                    rs.getString("sinopsis"),
+                    rs.getString("tanggal"),
                     rs.getString("gambar"));
 
                 filmList.add(film);
@@ -57,7 +59,7 @@ public class FilmDao {
     }
 
     public boolean isContainFilm(){
-        System.out.println("isContainFilm()");
+        // System.out.println("isContainFilm()");
         try{
             String query = "select count(*) as num from movies";
             PreparedStatement ptsm = con.koneksi.prepareStatement(query);
@@ -70,6 +72,7 @@ public class FilmDao {
         }
         return false;
     }
+
     public int countFilm(){
         System.out.println("SelectFilm()");
         try{
@@ -84,6 +87,7 @@ public class FilmDao {
         }
         return 0;
     }
+
     public boolean isFilmAdded(String code){
         System.out.println("SelectFilm()");
         try{
@@ -136,6 +140,7 @@ public class FilmDao {
         }
         return false;
     }
+
     public boolean deleteFilm(String code){
         System.out.println("deleteFilm()");
         String query = "delete from movies where kode=?";

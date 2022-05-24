@@ -3,7 +3,7 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import com.toedter.calendar.JDateChooser;
+// import com.toedter.calendar.JDateChooser;
 
 import Class.Film;
 import Connection.FilmDao;
@@ -11,9 +11,9 @@ import Connection.FilmDao;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Random;
+// import java.io.File;
+// import java.text.SimpleDateFormat;
+// import java.util.Random;
 
 public class Delete extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -25,7 +25,7 @@ public class Delete extends JFrame {
 
     // -- DEKLARASI LABEL DAN TEXT FIELD FILE
     private static JLabel labelNama;
-    private static JLabel textFieldNama;
+    // private static JLabel textFieldNama;
     private static JLabel labelKode;
     private static JLabel textFieldKode;
     private static JLabel labelSinopsis;
@@ -41,7 +41,7 @@ public class Delete extends JFrame {
     // -- DEKLARASI FONT YANG DIGUNAKAN
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
     final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 18); 
-    final private static Font thirdFont = new Font("TimesRoman", Font.PLAIN, 14);
+    // final private static Font thirdFont = new Font("TimesRoman", Font.PLAIN, 14);
 
     final private Border border = BorderFactory.createLineBorder(Color.gray,1);
 

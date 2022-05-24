@@ -10,9 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import Class.Order;
 
 public class Lihat extends JFrame{
+    Order order = new Order();
+
     private static JPanel panel;
     private static JFrame frame; 
     private static JScrollPane scrollPanel;
@@ -105,6 +107,7 @@ public class Lihat extends JFrame{
                 }   
             }});
         panel.add(btnBack);
+        
         if(filmDao.isContainFilm()){
             filmList = filmDao.getFilmList();
             int yLabel = 70;
@@ -125,7 +128,10 @@ public class Lihat extends JFrame{
                 panel.add(titleCode[i]);
 
                 // -- LABEL TEXT KODE
-                textCode[i] = new JLabel(": " + filmList.get(i).getCode());
+                String code = filmList.get(i).getCode();
+                int intCode = Integer.valueOf(code);
+                order.setNoBooking(intCode);
+                textCode[i] = new JLabel(": " + code);
                 textCode[i].setBounds(xTextLabel, yLabel, widthTextLabel, heightTextLabel);
                 textCode[i].setFont(fontKetiga);
                 textCode[i].setForeground(Color.BLACK);
