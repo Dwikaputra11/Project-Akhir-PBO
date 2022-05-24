@@ -25,6 +25,16 @@ public class HomeUser extends JFrame {
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 20); 
     final private static Font secondaryFont = new Font("TimesRoman", Font.BOLD, 15); 
 
+    private String username;
+
+    public HomeUser(String username){
+        this.username = username;
+    }
+
+    public HomeUser(){
+        
+    }
+
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
@@ -56,7 +66,7 @@ public class HomeUser extends JFrame {
            @Override
            public void mouseClicked(MouseEvent ev) {
                try {
-                   Pemesanan pemesanan = new Pemesanan();
+                   Pemesanan pemesanan = new Pemesanan(username);
                    pemesanan.initialize();
                    frame.dispose();
                } catch (Exception e) {

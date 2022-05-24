@@ -18,15 +18,12 @@ public class OrderDao{
             ResultSet rs = pstm.executeQuery(query);
             int loop = 1;
             while(rs.next()){
-                if(loop == 1){
-                    order.setNoBooking(noBooking);
-                    order.setUsername(rs.getString("username"));
-                    order.setName(rs.getString("film"));
-                    order.setDate(rs.getString("tanggal"));
-                }
-                order.addSeat(rs.getString("seat"));
+                order.setNoBooking(noBooking);
+                order.setUsername(rs.getString("username"));
+                order.setName(rs.getString("film"));
+                order.setDate(rs.getString("tanggal"));
+                order.addSeats(rs.getString("seat"));
                 order.setTotalBooking(loop);
-                loop++;
             }
             return order;
         }catch(Exception e){
@@ -52,18 +49,18 @@ public class OrderDao{
     }
     public void AddOrder(Order order){
         System.out.println("addOrder()");
-        String query = "insert into order(kode,nama,sinopsis,tanggal,gambar) values (?,?,?,?,?)";
+        String query = "insert into orders (no_booking,username,film,date,seat) values (?,?,?,?,?)";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();
             pstm = con.koneksi.prepareStatement(query);
-            int loop = order.getSeat().size();
+            int loop = order.getSeats().size();
             for(int i = 0; i < loop; i++){
                 pstm.setInt(1, order.getNoBooking());
                 pstm.setString(2, order.getUsername());
-                pstm.setString(3, order.getSeat().get(i));
-                pstm.setString(4, order.getName());
-                pstm.setString(5, order.getDate());
+                pstm.setString(3, order.getName());
+                pstm.setString(4, order.getDate());
+                pstm.setString(5, order.getSeats().get(i));
                 pstm.executeUpdate();
             }
         } catch (Exception e) {
