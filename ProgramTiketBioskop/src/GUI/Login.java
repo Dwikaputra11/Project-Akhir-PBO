@@ -87,6 +87,10 @@ public class Login extends JFrame {
                 Boolean berhasilLogin = false;
                 Boolean berhasilLoginAdmin = false;
                 try { 
+                    // -- CEK FIELD KOSONG
+                    if(username.isBlank() || password.isBlank()){
+                        throw new Exception("Isi Field Kosong");
+                    }
                     // -- MENGECEK USERNAME DAN PASSWORD ADMIN
                     if(("admin".equals(username)) && ("admin".equals(password))) {
                         berhasilLoginAdmin = true;
@@ -96,7 +100,7 @@ public class Login extends JFrame {
                     if (berhasilLoginAdmin.equals(false)) {
                         user = userDao.getUser(username, password);
                         if(user == null){
-                            JOptionPane.showMessageDialog(frame, "Kesalahan Username/Password!", "Alert", HEIGHT);
+                            throw new Exception("Akun Belum Terdaftar!");
                         }else{
                             berhasilLogin = true;
                             order.setUsername(username);
@@ -115,17 +119,17 @@ public class Login extends JFrame {
                     // -- JIKA BERHASIL LOGIN SEBAGAI USER 
                     if (berhasilLogin.equals(true)) {
                         // JOptionPane.showMessageDialog(frame, "Login Berhasil!");
-                        HomeUser user = new HomeUser();
+                        HomeUser user = new HomeUser(username);
                         user.initialize();
                         frame.dispose();
                     } 
                     
                     // -- JIKA TIDAK BERHASIL LOGIN
                     if (berhasilLogin.equals(false) && berhasilLoginAdmin.equals(false)){
-                        JOptionPane.showMessageDialog(frame, "Kesalahan Username/Password!", "Alert", HEIGHT);
+                        throw new Exception("Kesalahan Username/Password!");
                     }
-                } catch (Exception exception) {
-                    System.out.println(exception.getMessage());
+                } catch (Exception msg) {
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert", HEIGHT);
                 }
             }
         });

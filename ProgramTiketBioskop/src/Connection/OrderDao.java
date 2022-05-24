@@ -18,15 +18,12 @@ public class OrderDao{
             ResultSet rs = pstm.executeQuery(query);
             int loop = 1;
             while(rs.next()){
-                if(loop == 1){
-                    order.setNoBooking(noBooking);
-                    order.setUsername(rs.getString("username"));
-                    order.setName(rs.getString("film"));
-                    order.setDate(rs.getString("tanggal"));
-                }
+                order.setNoBooking(noBooking);
+                order.setUsername(rs.getString("username"));
+                order.setName(rs.getString("film"));
+                order.setDate(rs.getString("tanggal"));
                 order.addSeat(rs.getString("seat"));
                 order.setTotalBooking(loop);
-                loop++;
             }
             return order;
         }catch(Exception e){
@@ -52,7 +49,7 @@ public class OrderDao{
     }
     public void AddOrder(Order order){
         System.out.println("addOrder()");
-        String query = "insert into order(no_booking,username,film,date,seat) values (?,?,?,?,?)";
+        String query = "insert into orders (no_booking,username,film,date,seat) values (?,?,?,?,?)";
         PreparedStatement pstm;
         try {
             con.statement = con.koneksi.createStatement();

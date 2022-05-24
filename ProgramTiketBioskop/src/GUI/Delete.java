@@ -3,7 +3,10 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+<<<<<<< HEAD
+=======
 // import com.toedter.calendar.JDateChooser;
+>>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
 import Class.Film;
 import Connection.FilmDao;
@@ -11,9 +14,13 @@ import Connection.FilmDao;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+
+=======
 // import java.io.File;
 // import java.text.SimpleDateFormat;
 // import java.util.Random;
+>>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
 public class Delete extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -140,7 +147,7 @@ public class Delete extends JFrame {
                     label1.setHorizontalAlignment(SwingConstants.CENTER);
                     panelConfirm.add(label1);
                     UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-                    int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Confirm",
+                    int res = JOptionPane.showConfirmDialog(null, panelConfirm, "Konfirmasi",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.PLAIN_MESSAGE);
 

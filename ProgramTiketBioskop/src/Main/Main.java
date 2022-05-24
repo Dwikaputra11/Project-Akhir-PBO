@@ -8,10 +8,6 @@ public class Main {
         Order order = new Order();
         // Login login = new Login();
         // login.initialize();
-        // Checkout checkout = new Checkout();
-        // checkout.initialize();
-        // Pemesanan pemesanan = new Pemesanan();
-        // pemesanan.initialize();
         PemilihanSeat ps = new PemilihanSeat(order);
         ps.initialize();
         // Checkout checkout = new Checkout(order);
