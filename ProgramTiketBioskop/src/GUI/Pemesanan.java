@@ -1,19 +1,17 @@
 package GUI;
 
 import javax.swing.*;
-<<<<<<< HEAD
 
 import Class.Film;
-=======
-import Class.Film;
 import Class.Order;
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
+
 import Connection.FilmDao;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 
 public class Pemesanan {
     // -- DEKLARASI PANEL & FRAME
@@ -36,22 +34,23 @@ public class Pemesanan {
     private static JButton backButton;
     private static JButton submitButton;
 
-<<<<<<< HEAD
+
+    private static FilmDao filmDao = new FilmDao();
+    private static Film film;
+    private Order order;
     private String kode;
     private String username;
 
     // private OrderDao orderDao;
     private FilmDao filmDao = new FilmDao();
 
-    private Film film;
+    private String username;
 
     public Pemesanan(String username){
         this.username = username;
     }
-=======
     private static FilmDao filmDao = new FilmDao();
     private static ArrayList<Film> filmList;
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
     public void initialize() {
         Order order = new Order();
@@ -118,7 +117,7 @@ public class Pemesanan {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-<<<<<<< HEAD
+
                     kode = kodeTextField.getText();
                     if(!kode.isBlank()){
                         if(filmDao.isFilmAdded(kode)){
@@ -127,14 +126,16 @@ public class Pemesanan {
                             seat.initialize();
                             frame.dispose();
                         }else{
-                            throw new Exception("Film Tidak Terdaftar");
+                            throw new Exception("Field Tidak Boleh Kosong!");
                         }
-                    }else{
-                        throw new Exception("Isi Field Kosong");
+                    } else {
+                        throw new Exception("Tidak Ada Film Yang Terdaftar!");
                     }
                 } catch (Exception msg) {
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+
                     JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
-=======
+
                     if(filmDao.isContainFilm()) { // -- JALANKAN APABILA ADA DATA DALAM DATABASE
                         Boolean kodeSama = false;
                         Boolean kelebihanJumlahSeat = false;
@@ -186,7 +187,6 @@ public class Pemesanan {
                     }
                 } catch (Exception error) {
                     System.out.println(error.getMessage());
->>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
                 }
             }
         });
