@@ -3,9 +3,7 @@ package GUI;
 import javax.swing.*;
 
 import Class.Film;
-import Class.Order;
 import Connection.FilmDao;
-import Connection.OrderDao;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,7 +28,7 @@ public class Pemesanan {
     private String kode;
     private String username;
 
-    private OrderDao orderDao;
+    // private OrderDao orderDao;
     private FilmDao filmDao = new FilmDao();
 
     private Film film;

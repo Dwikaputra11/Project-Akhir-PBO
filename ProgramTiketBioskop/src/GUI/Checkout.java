@@ -3,8 +3,6 @@ package GUI;
 import javax.swing.*;
 
 import Class.Order;
-import Connection.FilmDao;
-import Connection.OrderDao;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +12,7 @@ public class Checkout extends JFrame{
     // -- DEKLARASI PANEL & FRAME
     private static JFrame frame;
     private static JPanel panel;
-    private static JScrollPane scrollPane;
+    // private static JScrollPane scrollPane;
 
     private static JLabel labelJudul;
     private static JLabel[] labelPemesanan;
@@ -45,7 +43,7 @@ public class Checkout extends JFrame{
     final int heightTextLabel = 30;
 
     private Order order;
-    private OrderDao orderDao = new OrderDao();
+    // private OrderDao orderDao = new OrderDao();
 
     public Checkout(Order order){
         this.order = order;
