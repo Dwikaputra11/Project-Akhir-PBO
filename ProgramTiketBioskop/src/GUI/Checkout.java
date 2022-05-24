@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import Class.Order;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +59,39 @@ public class Checkout extends JFrame{
         int totalBooking = order.getTotalBooking();
         System.out.println("Checkout --> Sukses");
 
+        int n = order.getSeat().size();
+        labelPemesanan = new JLabel[n];
+        labelNoBooking = new JLabel[n];
+        labelUsername = new JLabel[n];
+        labelFilm = new JLabel[n];
+        labelTanggal= new JLabel[n];
+        labelSeat = new JLabel[n];
+
+    public Checkout(Order order){
+        labelPemesanan = new JLabel();
+        labelNoBooking = new JLabel();
+        labelUsername = new JLabel();
+        labelFilm = new JLabel();
+        labelTanggal= new JLabel();
+        labelSeat = new JLabel[3];
+        
+        textNoBooking = new JLabel();
+        textUsername = new JLabel();
+        textFilm = new JLabel();
+        textTanggal = new JLabel();
+        textSeat = new JLabel[3];
+
+        btnCheckOut = new JButton();
+
+        this.order = order;
+    }
+
+    public void initialize(){
+        String username = order.getUsername();
+        String namaFilm = order.getNamaFilm();
+        int noBooking = order.getNoBooking();
+        int totalBooking = order.getTotalBooking();
+
         frame = new JFrame();
         panel = new JPanel();
 
@@ -87,6 +121,7 @@ public class Checkout extends JFrame{
         labelNoBooking.setBounds(xTitleLabel,100,widthTitleLabel,heightTitleLabel);
         labelNoBooking.setFont(secondaryFont);
         panel.add(labelNoBooking);
+
 
         textNoBooking = new JLabel(": ");
         textNoBooking.setText(": " + noBooking);
@@ -129,6 +164,9 @@ public class Checkout extends JFrame{
 
         textTanggal = new JLabel();
         textTanggal.setText(order.getDate());
+
+        textTanggal = new JLabel();
+        textTanggal.setText(": 00-00-0000");
         textTanggal.setBounds(xTextLabel,190,widthTextLabel,heightTextLabel);
         textTanggal.setFont(thirdFont);
         panel.add(textTanggal);
@@ -169,6 +207,3 @@ public class Checkout extends JFrame{
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); 
     }
-
-
-}

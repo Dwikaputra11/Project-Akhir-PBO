@@ -2,16 +2,14 @@ package GUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
-import Class.Film;
 import Class.Order;
-import Connection.OrderDao;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class PemilihanSeat extends JFrame {
     // -- DEKLARASI PANEL & FRAME
@@ -22,32 +20,38 @@ public class PemilihanSeat extends JFrame {
     private static JTable kodeTable;
 
     // -- DEKLARASI LABEL GAMBAR POSISI SEAT
-    private static JLabel labelGambar;
-    private static JLabel labelSeat;
+    private static JLabel labelGambar;;
+    private static String[] seatNumber;
+    // private static ArrayList<String>[] cobaTampil;
+    private static JLabel[] seatLabel;
+    private static JTextField[] submitField;
+
+    private Order order;
 
     // -- DEKLARASI TOMBOL KEMBALI DAN SUBMIT
     private static JButton backButton;
     private static JButton submitButton;
-    private static JLabel[] seatLabel;
-    private static JTextField[] submitField;
 
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 17); 
 
     Border border = BorderFactory.createLineBorder(Color.gray,1);
 
-    private static OrderDao orderDao = new OrderDao();
-    private int noBooking;
-    private Order order;
-    private int totalBooking;
 
-    public PemilihanSeat(Order order){
-        this.order = order; 
-        totalBooking = order.getTotalBooking();
-        seatLabel = new JLabel[totalBooking];
-        submitField = new JTextField[totalBooking];
+    public PemilihanSeat(Order order) {
+        this.order = order;
     }
 
     public void initialize() {
+        PemilihanSeat.seatNumber = new String[3];
+        PemilihanSeat.seatLabel = new JLabel[3];
+        PemilihanSeat.submitField = new JTextField[3];
+        // PemilihanSeat.cobaTampil = new ArrayList<String>[3];
+
+        Object[][] data = {{"masuk","keluar","besok"},{"satellite"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"},{"sad"}};
+        Object[] namaKolom = {"Nama", "No Hp", "Usia", "E-mail", "Dwika"};
+
+        DefaultTableModel dtm = new DefaultTableModel(data, namaKolom);
+
         // -- DEKLARASI PANEL & FRAME
         panel = new JPanel();
         frame = new JFrame();
@@ -56,7 +60,7 @@ public class PemilihanSeat extends JFrame {
         frame.setSize(1250, 650);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
-        frame.setTitle("Pemesanan");
+        frame.setTitle("Pemilihan Seat");
 
         // -- SET WARNA BACKGROUND & LAYOUT PANEL
         panel.setLayout(null);
@@ -69,17 +73,17 @@ public class PemilihanSeat extends JFrame {
         labelGambar.setBorder(border);
         panel.add(labelGambar);
 
-        labelSeat = new JLabel("Masukkan No Seat ");
-        labelSeat.setBounds(545, 10, 305, 25);
-        labelSeat.setFont(mainFont);
-        labelSeat.setForeground(Color.black);
-        panel.add(labelSeat);
+        JScrollPane sp = new JScrollPane();
 
         // -- TABEL SEAT TERSEDIA
-        kodeTable = new JTable();
+        kodeTable = new JTable(dtm);
         kodeTable.setBounds(40,70,530,350);
         kodeTable.setBorder(border);
+        sp.setViewportView(kodeTable);
+        add(new JScrollPane(kodeTable));
         panel.add(kodeTable);
+
+        validate();
 
         // -- JLABEL TOMBOL KEMBALI
         backButton = new JButton("kembali");
@@ -123,13 +127,13 @@ public class PemilihanSeat extends JFrame {
 
         // -- SUBMIT BUTTON
         submitButton = new JButton("Submit");
-        submitButton.setFont(mainFont);
         submitButton.setBounds(575, 550, 85, 35);
         submitButton.setForeground(Color.black);
         submitButton.addActionListener((ActionListener) new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     // Cek Field Kosong
                     if(isFilled()){
                         int res = JOptionPane.showConfirmDialog(frame, "Yakin dengan Pemesanan",
@@ -164,6 +168,7 @@ public class PemilihanSeat extends JFrame {
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
         frame.setVisible(true); // -- MEMUNCULKAN WINDOW
     }
+
     public static int generatedNumber(){
         int leftLimit = 48; // letter '0'
         int rightLimit = 57; // letter '9'

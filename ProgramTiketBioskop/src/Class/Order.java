@@ -9,13 +9,24 @@ public class Order extends Film{
     private String seat;
     private String username;
     private int totalBooking;
+    private String namaFilm;
  
-    public Order(int noBooking,String username, String name, String date, ArrayList<String> seats) {
+
+    public Order(int noBooking,String username, String name, String date, ArrayList<String> seat, String namaFilm) {
         super(name,date);
         this.noBooking = noBooking;
         this.seats = seats;
         this.username = username;
         this.totalBooking = 0;
+        this.namaFilm = namaFilm;
+    }
+
+    public String getNamaFilm() {
+        return this.namaFilm;
+    }
+
+    public void setNamaFilm(String namaFilm) {
+        this.namaFilm = namaFilm;
     }
 
     // public Order(int noBooking,String username, String name, String date, String seat) {

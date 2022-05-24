@@ -1,13 +1,17 @@
 package GUI;
 
 import javax.swing.*;
+
 import Class.Film;
 import Class.Order;
+
 import Connection.FilmDao;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 
 public class Pemesanan {
     // -- DEKLARASI PANEL & FRAME
@@ -30,17 +34,26 @@ public class Pemesanan {
     private static JButton backButton;
     private static JButton submitButton;
 
+
     private static FilmDao filmDao = new FilmDao();
     private static Film film;
     private Order order;
+    private String kode;
+    private String username;
+
+    // private OrderDao orderDao;
+    private FilmDao filmDao = new FilmDao();
 
     private String username;
 
     public Pemesanan(String username){
         this.username = username;
     }
+    private static FilmDao filmDao = new FilmDao();
+    private static ArrayList<Film> filmList;
 
     public void initialize() {
+        Order order = new Order();
 
         // -- DEKLARASI PANEL & FRAME
         panel = new JPanel();
@@ -104,33 +117,14 @@ public class Pemesanan {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // CEK APA ADA FILM DI DATABASE
-                    if(filmDao.isContainFilm()) { // -- JALANKAN APABILA ADA DATA DALAM DATABASE
-                        String kode = kodeTextField.getText();
-                        // CEK KODE KOSONG ATAU TIDAK
-                        if(!inputJumlahSeat.getText().isBlank() && !kodeTextField.getText().isBlank()){
-                            int jumlahSeat = Integer.parseInt(inputJumlahSeat.getText());
-                            // CEK SEAT < 3 ATAU > 0
-                            if(jumlahSeat <= 3 && jumlahSeat > 0){
-                                // CEK APAKAH KODE SUDAH TERDAFTAR KE DATABASE
-                                if(filmDao.isFilmAdded(kode)){
-                                    film = filmDao.getFilm(kode);
-                                    order = new Order();
-                                    order.setUsername(username);
-                                    order.setDate(film.getDate());
-                                    order.setName(film.getName());
-                                    order.setTotalBooking(jumlahSeat);
-                                    PemilihanSeat ps = new PemilihanSeat(order);
-                                    ps.initialize();
-                                    frame.dispose();
-                                }else{
-                                    kodeTextField.setText("");
-                                    throw new Exception("Tidak Ditemukan Kode Film!");
-                                }
-                            }else{
-                                inputJumlahSeat.setText("");
-                                throw new Exception("Jumlah Seat hanya bisa diisi 1-3 seat!");
-                            }
+
+                    kode = kodeTextField.getText();
+                    if(!kode.isBlank()){
+                        if(filmDao.isFilmAdded(kode)){
+                            film = filmDao.getFilm(kode);
+                            PemilihanSeat seat = new PemilihanSeat(film,username);
+                            seat.initialize();
+                            frame.dispose();
                         }else{
                             throw new Exception("Field Tidak Boleh Kosong!");
                         }
@@ -139,6 +133,60 @@ public class Pemesanan {
                     }
                 } catch (Exception msg) {
                     JOptionPane.showMessageDialog(frame, msg.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
+
+                    if(filmDao.isContainFilm()) { // -- JALANKAN APABILA ADA DATA DALAM DATABASE
+                        Boolean kodeSama = false;
+                        Boolean kelebihanJumlahSeat = false;
+                        String currentCodeIndex;
+                        filmList = filmDao.getFilmList();
+                        for(int i = 0; i < filmList.size(); i++) {
+                            String inputCode = kodeTextField.getText();
+                            currentCodeIndex = filmList.get(i).getCode();
+                            if(currentCodeIndex.equals(inputCode)) {
+                                kodeSama = true;
+                                int code = Integer.parseInt(currentCodeIndex);
+                                order.setNoBooking(code);
+                                break;
+                            }
+                        }
+
+                        String jumlahSeat = inputJumlahSeat.getText();
+
+                        // -- MENGECEK APAKAH INPUT JUMLAH SEAT KOSONG
+                        if(jumlahSeat.isEmpty()) {
+                            JOptionPane.showMessageDialog(frame, "Jumlah Seat Tidak Boleh Kosong!", "Warning", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        int intJumlahSeat = Integer.parseInt(jumlahSeat);
+
+                        // -- MEMASTIKAN JUMLAH SEAT HANYA BISA DIISI ANGKA 1 - 3
+                        if((intJumlahSeat < 1) || (intJumlahSeat > 3)) {
+                            kelebihanJumlahSeat = true;
+                        } 
+
+                        // -- APABILA KODE FILM YANG DIMASUKKAN TIDAK ADA DALAM DATABASE
+                        if((!kodeSama) || (kelebihanJumlahSeat)) {
+                            if(!kodeSama){
+                                kodeTextField.setText("");
+                                JOptionPane.showMessageDialog(frame, "Tidak Ditemukan Kode Film!", "Warning", JOptionPane.ERROR_MESSAGE);
+                            }
+                            if(kelebihanJumlahSeat) {
+                                inputJumlahSeat.setText("");
+                                JOptionPane.showMessageDialog(frame, "Jumlah Seat hanya bisa diisi 1-3 seat!", "Warning", JOptionPane.ERROR_MESSAGE);
+                            } 
+                        } else {
+                            order.setTotalBooking(intJumlahSeat);
+                            PemilihanSeat seat = new PemilihanSeat(order);
+                            seat.initialize();
+                            frame.dispose();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Tidak ada kode film dalam database!", "Warning", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception error) {
+                    System.out.println(error.getMessage());
                 }
             }
         });

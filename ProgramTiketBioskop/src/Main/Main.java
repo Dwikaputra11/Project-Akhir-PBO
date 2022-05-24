@@ -1,23 +1,16 @@
 package Main;
 
+import Class.Order;
 import GUI.*;
 
 public class Main {
     public static void main(String[] args) {
+        Order order = new Order();
         // Login login = new Login();
         // login.initialize();
-        // Checkout checkout = new Checkout();
+        PemilihanSeat ps = new PemilihanSeat(order);
+        ps.initialize();
+        // Checkout checkout = new Checkout(order);
         // checkout.initialize();
-        // Lihat lihat = new Lihat();
-        // lihat.initialize();
-        Login login = new Login();
-        login.initialize();
-        //Tambah tambah = new Tambah();
-        //tambah.initialize();
-        //Order order = new Order(001,"b1","dwika","doctor strange","01Qas","00-00-0000");
-        // Kode editkode = new Kode();
-        // editkode.initialize();
-        // KodeDelete kodedelete = new KodeDelete();
-        // kodedelete.initialize();
     }
 }
