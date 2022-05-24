@@ -128,7 +128,7 @@ public class Checkout extends JFrame{
         panel.add(labelTanggal);
 
         textTanggal = new JLabel();
-        textTanggal.setText(order.getDate());
+        textTanggal.setText(": " + order.getDate());
         textTanggal.setBounds(xTextLabel,190,widthTextLabel,heightTextLabel);
         textTanggal.setFont(thirdFont);
         panel.add(textTanggal);

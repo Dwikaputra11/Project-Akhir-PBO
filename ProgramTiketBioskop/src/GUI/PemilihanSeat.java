@@ -3,7 +3,6 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import Class.Film;
 import Class.Order;
 import Connection.OrderDao;
 
@@ -19,7 +18,7 @@ public class PemilihanSeat extends JFrame {
     private static JFrame frame;
 
     // -- DEKLARASI TABEL KODE FILM
-    private static JTable kodeTable;
+    private static JTable tabel;
 
     // -- DEKLARASI LABEL GAMBAR POSISI SEAT
     private static JLabel labelGambar;
@@ -30,6 +29,10 @@ public class PemilihanSeat extends JFrame {
     private static JButton submitButton;
     private static JLabel[] seatLabel;
     private static JTextField[] submitField;
+    private static JLabel labelTabel;
+    private static JLabel labelDenah;
+
+    private JScrollPane scrollTabel;
 
     final private static Font mainFont = new Font("TimesRoman", Font.BOLD, 17); 
 
@@ -39,12 +42,15 @@ public class PemilihanSeat extends JFrame {
     private int noBooking;
     private Order order;
     private int totalBooking;
+    private String[][] seatTerdaftar;
+    private int terBooking;
 
     public PemilihanSeat(Order order){
         this.order = order; 
         totalBooking = order.getTotalBooking();
         seatLabel = new JLabel[totalBooking];
         submitField = new JTextField[totalBooking];
+        terBooking = orderDao.countOrderFilm(order.getkodeFilm());
     }
 
     public void initialize() {
@@ -63,6 +69,12 @@ public class PemilihanSeat extends JFrame {
         panel.setBackground(Color.white);
 
         // -- LABEL GAMBAR POSISI SEAT
+        labelDenah = new JLabel("Denah Seat");
+        labelDenah.setBounds( 860, 30, 305, 25);
+        labelDenah.setFont(mainFont);
+        labelDenah.setForeground(Color.black);
+        panel.add(labelDenah);
+
         labelGambar = new JLabel();
         labelGambar.setBounds(600,70,600,350);
         labelGambar.setIcon(new ImageIcon("C:\\dev\\Java\\Project-Akhir-PBO\\ProgramTiketBioskop\\img\\seat.png"));
@@ -76,10 +88,23 @@ public class PemilihanSeat extends JFrame {
         panel.add(labelSeat);
 
         // -- TABEL SEAT TERSEDIA
-        kodeTable = new JTable();
-        kodeTable.setBounds(40,70,530,350);
-        kodeTable.setBorder(border);
-        panel.add(kodeTable);
+        labelTabel = new JLabel("Seat Tidak Tersedia");
+        labelTabel.setBounds(230, 30, 305, 25);
+        labelTabel.setFont(mainFont);
+        labelTabel.setForeground(Color.black);
+        panel.add(labelTabel);
+
+        String columnTitle[] = {"Seat Tidak Tersedia"}; 
+        if(orderDao.isContainOrder(order.getkodeFilm())){
+            seatTerdaftar = orderDao.getOrderSeatList(order.getkodeFilm());
+            tabel = new JTable(seatTerdaftar, columnTitle);
+        }else{
+            tabel = new JTable();
+        }
+        tabel.setBounds(40,70,530,350);
+        tabel.setBorder(border);
+        panel.add(tabel);
+        System.out.println("Table ditambahkan");
 
         // -- JLABEL TOMBOL KEMBALI
         backButton = new JButton("kembali");
@@ -132,24 +157,28 @@ public class PemilihanSeat extends JFrame {
                 try {
                     // Cek Field Kosong
                     if(isFilled()){
-                        int res = JOptionPane.showConfirmDialog(frame, "Yakin dengan Pemesanan",
-                         "Konfirmasi",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.PLAIN_MESSAGE);
-                        
-                        // Hasil Confirm = YES
-                        if(res == JOptionPane.YES_OPTION){ 
-                            noBooking = generatedNumber();
-                            order.setNoBooking(noBooking);
-                            ArrayList<String> seats = new ArrayList<>();
-                            for(int i = 0; i < totalBooking; i++){
-                                seats.add(submitField[i].getText().toUpperCase());
+                        if(!isBooked()){
+                            int res = JOptionPane.showConfirmDialog(frame, "Yakin dengan Pemesanan",
+                             "Konfirmasi",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.PLAIN_MESSAGE);
+                            
+                            // Hasil Confirm = YES
+                            if(res == JOptionPane.YES_OPTION){ 
+                                noBooking = generatedNumber();
+                                order.setNoBooking(noBooking);
+                                ArrayList<String> seats = new ArrayList<>();
+                                for(int i = 0; i < totalBooking; i++){
+                                    seats.add(submitField[i].getText().toUpperCase());
+                                }
+                                order.setSeats(seats);
+                                orderDao.AddOrder(order);
+                                Checkout checkout = new Checkout(order);
+                                checkout.initialize();
+                                frame.dispose();
                             }
-                            order.setSeats(seats);
-                            orderDao.AddOrder(order);
-                            Checkout checkout = new Checkout(order);
-                            checkout.initialize();
-                            frame.dispose();
+                        }else{
+                            throw new Exception("Seat telah dibooking");
                         }
                     }else{
                         throw new Exception("Isi Field Kosong");
@@ -181,6 +210,18 @@ public class PemilihanSeat extends JFrame {
         }while(orderDao.isOrderExist(generatedNumber));
 
         return generatedNumber;
+    }
+
+    // fungsi seat terbooking
+    boolean isBooked(){
+        for(int i = 0; i < totalBooking; i++){
+            String seat = submitField[i].getText().toUpperCase();
+            for(int j = 0; j < seatTerdaftar.length; j++){
+                System.out.println(seatTerdaftar[j][0]);
+                if(seat.equals(seatTerdaftar[j][0])) return true; 
+            }
+        }
+        return false;
     }
 
     // Fungsi Field Kosong

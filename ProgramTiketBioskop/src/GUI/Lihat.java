@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+
 import Class.Film;
 import Connection.FilmDao;
 
@@ -77,7 +78,10 @@ public class Lihat extends JFrame{
     public void initialize() {
         frame = new JFrame();
         panel = new JPanel();
-        panel.setSize(widthFrame, heigthFrame);
+        scrollPanel = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setBounds(0,1000,750,600);
+        scrollPanel.setViewportView(panel);
+        panel.setMinimumSize(new Dimension(widthFrame, heigthFrame));
         panel.setAutoscrolls(true);
 
         GroupLayout layout = new GroupLayout(panel);
@@ -105,9 +109,9 @@ public class Lihat extends JFrame{
                 }   
             }});
         panel.add(btnBack);
+        int yLabel = 70;
         if(filmDao.isContainFilm()){
             filmList = filmDao.getFilmList();
-            int yLabel = 70;
             for(int i = 0; i < filmList.size(); i++){
                 // -- TAMPIL GAMBAR
                 showImage[i] = new JLabel();
@@ -191,16 +195,7 @@ public class Lihat extends JFrame{
             textEmptyFilm.setForeground(Color.black);
             scrollPanel.add(textEmptyFilm);
         }
-        
-
-        scrollPanel = new JScrollPane(panel);
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        // add(scrollPanel, BorderLayout.CENTER);
-        scrollPanel.setBounds(0,10 , 750, 600);
-        // scrollPanel.setSize(widthFrame, heigthFrame);
-        scrollPanel.setViewportView(panel);
-
+        panel.setPreferredSize(new Dimension(widthFrame, yLabel));
         frame.add(scrollPanel);  
         frame.setTitle("Lihat Film");
         frame.setLocationRelativeTo(null); // -- BIKIN WINDOW PROGRAM DI TENGAH LAYAR
