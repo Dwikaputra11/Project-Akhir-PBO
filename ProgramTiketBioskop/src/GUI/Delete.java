@@ -3,6 +3,10 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+<<<<<<< HEAD
+=======
+// import com.toedter.calendar.JDateChooser;
+>>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
 import Class.Film;
 import Connection.FilmDao;
@@ -10,7 +14,13 @@ import Connection.FilmDao;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 
+=======
+// import java.io.File;
+// import java.text.SimpleDateFormat;
+// import java.util.Random;
+>>>>>>> a67b10a74726695e64afc8441935e9f092c7f555
 
 public class Delete extends JFrame {
     // -- DEKLARASI PANEL & FRAME
