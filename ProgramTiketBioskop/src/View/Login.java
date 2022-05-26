@@ -36,6 +36,15 @@ public class Login extends JFrame {
 
     // final private static Font mainFont = new Font("Roboto", Font.BOLD, 13); FONT GAJADI DIPAKAI WKWK
 
+    // private String username;
+    // public Login(String username){
+    //     this.username = username;
+    // }
+
+    public Login(){
+
+    }
+
     public void initialize() {
         // -- INSTANSIASI PANEL & FRAME
         panel = new JPanel();
@@ -100,6 +109,7 @@ public class Login extends JFrame {
                         if(user == null){
                             throw new Exception("Akun Belum Terdaftar!");
                         }else{
+                            System.out.println(user.getUsername());
                             berhasilLogin = true;
                         }                        
                     }
@@ -114,8 +124,8 @@ public class Login extends JFrame {
                     // -- JIKA BERHASIL LOGIN SEBAGAI USER 
                     if (berhasilLogin.equals(true)) {
                         // JOptionPane.showMessageDialog(frame, "Login Berhasil!");
-                        HomeUser user = new HomeUser(username);
-                        user.initialize();
+                        HomeUser homeUser = new HomeUser(user.getUsername());
+                        homeUser.initialize();
                         frame.dispose();
                     } 
                     

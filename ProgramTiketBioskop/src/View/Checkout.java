@@ -53,6 +53,7 @@ public class Checkout extends JFrame{
     public void initialize(){
         System.out.println("Checkout --> initialize()");
         String username = order.getUsername();
+        System.out.println("Username: " + username);
         String namaFilm = order.getName();
         int noBooking = order.getNoBooking();
         int totalBooking = order.getTotalBooking();
@@ -158,7 +159,7 @@ public class Checkout extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HomeUser user = new HomeUser(order.getUsername());
+                HomeUser user = new HomeUser(username);
                 user.initialize();
                 frame.dispose();
             }
