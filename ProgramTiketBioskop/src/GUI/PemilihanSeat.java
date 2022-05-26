@@ -99,6 +99,7 @@ public class PemilihanSeat extends JFrame {
             seatTerdaftar = orderDao.getOrderSeatList(order.getkodeFilm());
             tabel = new JTable(seatTerdaftar, columnTitle);
         }else{
+            seatTerdaftar = new String[1][1];
             tabel = new JTable();
         }
         tabel.setBounds(40,70,530,350);
@@ -214,11 +215,13 @@ public class PemilihanSeat extends JFrame {
 
     // Fungsi Seat Terbooking
     boolean isBooked(){
-        for(int i = 0; i < totalBooking; i++){
-            String seat = submitField[i].getText().toUpperCase();
-            for(int j = 0; j < seatTerdaftar.length; j++){
-                System.out.println(seatTerdaftar[j][0]);
-                if(seat.equals(seatTerdaftar[j][0])) return true; 
+        if(seatTerdaftar.length > 0){
+            for(int i = 0; i < totalBooking; i++){
+                String seat = submitField[i].getText().toUpperCase();
+                for(int j = 0; j < seatTerdaftar.length; j++){
+                    System.out.println(seatTerdaftar[j][0]);
+                    if(seat.equals(seatTerdaftar[j][0])) return true; 
+                }
             }
         }
         return false;

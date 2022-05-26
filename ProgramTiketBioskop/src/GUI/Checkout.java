@@ -158,7 +158,7 @@ public class Checkout extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HomeUser user = new HomeUser();
+                HomeUser user = new HomeUser(order.getUsername());
                 user.initialize();
                 frame.dispose();
             }
