@@ -137,44 +137,35 @@ public class EditFilm extends JFrame {
                 String imageUrl = labelPenampilPath.getText();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
                 String date = sdf.format(pilihTanggal.getDate().getTime());
-                if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
-                    film = new Film(code,name,synopsis,date,imageUrl);
-                    boolean isUpdate = filmDao.updateFilm(film);
-                    try{
-                        if(isUpdate){
-                            filmDao.addFilm(film);
-                            JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
-                            JPanel panelRequestToAdd = new JPanel();
-                            panelRequestToAdd.setSize(new Dimension(250, 50));
-                            panelRequestToAdd.setLayout(null);
-                            JLabel label1 = new JLabel("Update Lagi?");
-                            label1.setVerticalAlignment(SwingConstants.BOTTOM);
-                            label1.setBounds(70, 20, 250, 30);
-                            label1.setHorizontalAlignment(SwingConstants.CENTER);
-                            panelRequestToAdd.add(label1);
-                            UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-                            int res = JOptionPane.showConfirmDialog(null, panelRequestToAdd, "Konfirmasi",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.PLAIN_MESSAGE);
-                            if(res == 0){
-                                frame.dispose();
-                                Kode kode = new Kode();
-                                kode.initialize();
+                try{
+                    if(!name.isBlank() && !code.isBlank() && !synopsis.isBlank() && !imageUrl.isBlank() && !date.isBlank()){
+                        film = new Film(code,name,synopsis,date,imageUrl);
+                        boolean isUpdate = filmDao.updateFilm(film);
+                            if(isUpdate){
+                                filmDao.addFilm(film);
+                                JOptionPane.showMessageDialog(frame, "Film Berhasil Ditambahkan!");
+                                int res = JOptionPane.showConfirmDialog(frame, "Update lagi?",
+                                "Konfirmasi",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.PLAIN_MESSAGE);
+                                if(res == JOptionPane.YES_OPTION){
+                                    frame.dispose();
+                                    Kode kode = new Kode();
+                                    kode.initialize();
+                                }else{
+                                    frame.dispose();
+                                    HomeAdmin admin = new HomeAdmin();
+                                    admin.initialize();
+                                }
                             }else{
-                                frame.dispose();
-                                HomeAdmin admin = new HomeAdmin();
-                                admin.initialize();
+                                throw new Exception("Film Gagal Update!");
                             }
-                        }else{
-                            JOptionPane.showMessageDialog(frame, "Film Gagal Update!", "Alert", HEIGHT);
-                        }
-                    }catch(Exception exception){
-                        System.err.println(exception.getMessage());
+                    }else{
+                        throw new Exception("Isi Field Kosong!");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(frame, "Isi Field Kosong!", "Alert", HEIGHT);
+                }catch(Exception msg){
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
                 }
-
             }
         });
         panel.add(buttonSubmit);

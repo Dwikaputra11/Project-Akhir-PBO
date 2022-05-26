@@ -60,7 +60,7 @@ public class Kode {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    HomeUser home = new HomeUser();
+                    HomeAdmin home = new HomeAdmin();
                     home.initialize();
                     frame.dispose();
                 } catch (Exception error) {
@@ -77,12 +77,21 @@ public class Kode {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Film film = filmDao.getFilm(kodeTextField.getText());
-                    EditFilm editfilm = new EditFilm(film);
-                    editfilm.initialize();
-                    frame.dispose();
-                } catch (Exception error) {
-                    System.out.println(error.getMessage());
+                    if(!kodeTextField.getText().isBlank()){
+                        String kode = kodeTextField.getText();
+                        if(filmDao.isFilmAdded(kode)){
+                            Film film = filmDao.getFilm(kode);
+                            EditFilm editfilm = new EditFilm(film);
+                            editfilm.initialize();
+                            frame.dispose();
+                        }else{
+                            throw new Exception("Kode Invalid!"); 
+                        }
+                    }else{
+                        throw new Exception("Field tidak boleh kosong");
+                    }
+                } catch (Exception msg) {
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
                 }
             }
         });

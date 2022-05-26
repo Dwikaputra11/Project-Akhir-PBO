@@ -212,7 +212,7 @@ public class PemilihanSeat extends JFrame {
         return generatedNumber;
     }
 
-    // fungsi seat terbooking
+    // Fungsi Seat Terbooking
     boolean isBooked(){
         for(int i = 0; i < totalBooking; i++){
             String seat = submitField[i].getText().toUpperCase();
