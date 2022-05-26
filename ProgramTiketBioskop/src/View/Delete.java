@@ -1,4 +1,4 @@
-package GUI;
+package View;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -138,11 +138,13 @@ public class Delete extends JFrame {
                             HomeAdmin admin = new HomeAdmin();
                             admin.initialize();
                             frame.dispose();
+                        }else{
+                            throw new Exception("Film gagal dihapus");
                         } 
                     } 
                             
-                }catch(Exception exception){
-                    System.err.println(exception.getMessage());
+                }catch(Exception msg){
+                    JOptionPane.showMessageDialog(frame, msg.getMessage(), "Alert",JOptionPane.HEIGHT);
                 }
             }
         });

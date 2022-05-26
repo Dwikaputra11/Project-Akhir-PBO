@@ -1,4 +1,4 @@
-package GUI;
+package View;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -110,7 +110,7 @@ public class HomeUser extends JFrame {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 try {
-                    Lihat lihat = new Lihat();
+                    Lihat lihat = new Lihat(username);
                     lihat.initialize();
                     frame.dispose();
                 } catch (Exception e) {

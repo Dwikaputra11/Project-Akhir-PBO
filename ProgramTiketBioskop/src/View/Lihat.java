@@ -1,4 +1,4 @@
-package GUI;
+package View;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -58,8 +58,10 @@ public class Lihat extends JFrame{
     final int widthTextLabel = 200;
     final int heightTextLabel = 30;
 
+    private String username;
 
-    public Lihat(){
+
+    public Lihat(String username){
         if(filmDao.isContainFilm()){
             int n = filmDao.countFilm();
             Lihat.showImage = new JLabel[n];
@@ -73,9 +75,12 @@ public class Lihat extends JFrame{
             Lihat.textSynopsis = new JTextArea[n];
             Lihat.textDate = new JLabel[n];
         }
+        this.username = username;
     }
 
     public void initialize() {
+        System.out.println("Liat() --> initilize()");
+        System.out.println("Username: " + username);
         frame = new JFrame();
         panel = new JPanel();
         scrollPanel = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -101,7 +106,7 @@ public class Lihat extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    HomeUser home = new HomeUser();
+                    HomeUser home = new HomeUser(username);
                     home.initialize();
                     frame.dispose();
                 } catch (Exception error) {
